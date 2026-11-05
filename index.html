@@ -1,0 +1,2815 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>INTRODUCCIÓN A LA FISICOQUÍMICA - Ondas en Biomedicina (Facultad de Cs. Médicas - UCCuyo)</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Outfit & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <style>
+    body {
+      font-family: 'Outfit', sans-serif;
+      background-color: #f7f9f6;
+      color: #1e293b;
+      overflow-x: hidden;
+    }
+    .font-mono {
+      font-family: 'JetBrains Mono', monospace;
+    }
+    /* Paleta Institucional UCCuyo (Verde Oliva) */
+    .text-accent { color: #436600; }
+    .bg-accent { background-color: #436600; }
+    .bg-accent-hover:hover { background-color: #324d00; }
+    .bg-accent-light { background-color: #f1f6eb; }
+    .border-accent { border-color: #436600; }
+
+    .text-primary { color: #436600; }
+    .bg-primary { background-color: #436600; }
+    .bg-primary-dark { background-color: #324d00; }
+    .border-primary { border-color: #436600; }
+
+    /* Range slider custom styling */
+    input[type=range] {
+      -webkit-appearance: none;
+      width: 100%;
+      background: #e2e8f0;
+      height: 6px;
+      border-radius: 9999px;
+      outline: none;
+      transition: background 0.2s;
+    }
+    input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #436600;
+      cursor: pointer;
+      border: 2px solid #ffffff;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      transition: transform 0.1s, background-color 0.2s;
+    }
+    input[type=range]::-webkit-slider-thumb:hover {
+      transform: scale(1.15);
+      background: #324d00;
+    }
+
+    /* Custom scrollbars */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f1f5f9;
+      border-radius: 10px;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 10px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
+    }
+
+    .interactive-card {
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .interactive-card:hover {
+      transform: translateY(-2px);
+      border-color: #436600;
+      box-shadow: 0 10px 25px -5px rgba(67, 102, 0, 0.12);
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-accent/20 text-gray-800">
+
+  <!-- ========================================================================= -->
+  <!-- CABECERA INSTITUCIONAL UCCUYO                                             -->
+  <!-- ========================================================================= -->
+  <header class="bg-white border-b border-gray-200 shadow-sm sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-lg bg-accent flex items-center justify-center text-white font-bold text-xl shadow-md">
+          IFQ
+        </div>
+        <div>
+          <h1 class="text-lg font-bold text-gray-800 tracking-wide uppercase">INTRODUCCIÓN A LA FISICOQUÍMICA</h1>
+          <p class="text-xs text-gray-500 font-semibold">Lic. en Kinesiología y Fisiatría (Facultad de Cs. Médicas - UCCuyo)</p>
+        </div>
+      </div>
+      
+      <div class="flex items-center gap-2">
+
+
+        <!-- Botón Vademécum Teórico -->
+        <button onclick="openFormulasModal()" class="flex items-center gap-1.5 px-3 py-1.5 bg-gray-100 text-gray-700 text-xs font-semibold rounded-lg border border-gray-200 hover:bg-gray-200 transition">
+          <i class="fa-solid fa-book-bookmark text-accent"></i>
+          <span class="hidden sm:inline">Vademécum</span>
+        </button>
+        <!-- Botón Guía de Uso -->
+        <button onclick="openTutorial()" class="flex items-center gap-1.5 px-3 py-1.5 bg-accent text-white text-xs font-semibold rounded-lg shadow-sm hover:opacity-90 transition">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+          </svg>
+          Guía de Uso
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ========================================================================= -->
+  <!-- CONTENIDO PRINCIPAL CON SIDEBAR LATERAL                                   -->
+  <!-- ========================================================================= -->
+  <main class="flex-1 max-w-6xl w-full mx-auto p-4 md:p-6 flex flex-col lg:flex-row gap-6">
+    
+    <!-- Menú de Navegación Lateral -->
+    <nav class="w-full lg:w-64 flex flex-row lg:flex-col gap-2 bg-white p-3 rounded-2xl shadow-sm border border-gray-100 overflow-x-auto lg:overflow-x-visible whitespace-nowrap lg:whitespace-normal sticky top-20 h-fit">
+      <button onclick="switchTab(1)" id="tab-btn-1" class="bg-accent text-white flex-1 lg:flex-none text-left py-2.5 px-4 rounded-xl text-sm font-semibold transition shadow-sm flex items-center gap-2">
+        <i class="fa-solid fa-water"></i> <span>1. Parámetros Ondulatorios</span>
+      </button>
+      <button onclick="switchTab(2)" id="tab-btn-2" class="text-gray-700 hover:bg-gray-100 flex-1 lg:flex-none text-left py-2.5 px-4 rounded-xl text-sm font-medium transition flex items-center gap-2">
+        <i class="fa-solid fa-wind"></i> <span>2. Mecánicas vs. Vacío</span>
+      </button>
+      <button onclick="switchTab(3)" id="tab-btn-3" class="text-gray-700 hover:bg-gray-100 flex-1 lg:flex-none text-left py-2.5 px-4 rounded-xl text-sm font-medium transition flex items-center gap-2">
+        <i class="fa-solid fa-stethoscope"></i> <span>3. Ultrasonido & Ecografía</span>
+      </button>
+      <button onclick="switchTab(4)" id="tab-btn-4" class="text-gray-700 hover:bg-gray-100 flex-1 lg:flex-none text-left py-2.5 px-4 rounded-xl text-sm font-medium transition flex items-center gap-2">
+        <i class="fa-solid fa-tower-broadcast"></i> <span>4. Magneto & Resonancia</span>
+      </button>
+      <button onclick="switchTab(5)" id="tab-btn-5" class="text-gray-700 hover:bg-gray-100 flex-1 lg:flex-none text-left py-2.5 px-4 rounded-xl text-sm font-medium transition flex items-center gap-2">
+        <i class="fa-solid fa-user-doctor"></i> <span>5. Casos Clínicos</span>
+      </button>
+    </nav>
+
+    <!-- Área de Contenido Dinámico -->
+    <div class="flex-1 space-y-6">
+
+    <!-- =============================================================== -->
+    <!-- MÓDULO 1: LABORATORIO DE PARÁMETROS ONDULATORIOS                -->
+    <!-- =============================================================== -->
+    <section id="module-1" class="module-content space-y-6">
+      <!-- Introducción Teórica con Articulación -->
+      <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200">
+        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+          <div class="space-y-1">
+            <span class="text-xs font-bold text-cyan-600 uppercase tracking-wider bg-cyan-50 px-2.5 py-1 rounded-md border border-cyan-200">
+              Fenomenología Fundamental
+            </span>
+            <h2 class="text-xl font-bold text-[#162144]">
+              Laboratorio de Parámetros Ondulatorios en Tiempo Real
+            </h2>
+            <p class="text-sm text-slate-600 max-w-3xl">
+              Una <strong>onda</strong> es una perturbación que se propaga transportando <em>energía sin transportar materia</em>. Observa las partículas rojas del medio: oscilan arriba y abajo alrededor de su posición de equilibrio mientras la perturbación avanza transversalmente.
+            </p>
+          </div>
+          <div class="flex items-center gap-2 shrink-0">
+            <button id="btnPauseWave" onclick="toggleWavePause()" class="px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium text-xs flex items-center gap-1.5 transition">
+              <i id="iconPause" class="fa-solid fa-pause"></i>
+              <span id="textPause">Pausar</span>
+            </button>
+            <button id="btnSlowMo" onclick="toggleSlowMo()" class="px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium text-xs flex items-center gap-1.5 transition">
+              <i class="fa-solid fa-stopwatch"></i>
+              <span id="textSlowMo">Cámara Lenta: Off</span>
+            </button>
+            <button id="btnVectors" onclick="toggleVectors()" class="px-3.5 py-2 rounded-xl bg-cyan-50 border border-cyan-200 text-cyan-700 font-medium text-xs flex items-center gap-1.5 transition hover:bg-cyan-100">
+              <i class="fa-solid fa-arrows-up-down"></i>
+              <span id="textVectors">Vectores: On</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Canvas y Telemetría -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+        <!-- Visor Canvas -->
+        <div class="lg:col-span-8 bg-white rounded-2xl p-5 shadow-sm border border-slate-200 flex flex-col justify-between">
+          <div class="flex items-center justify-between mb-3 pb-2 border-b border-slate-100">
+            <div class="flex items-center gap-2">
+              <span class="relative flex h-2.5 w-2.5">
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-accent"></span>
+              </span>
+              <span class="text-xs font-bold text-slate-800 tracking-tight">Osciloscopio Ondulatorio Transversal</span>
+              <span class="hidden sm:inline text-[11px] font-mono text-slate-400 bg-slate-100 px-2 py-0.5 rounded">60 FPS</span>
+            </div>
+            <div class="text-[11px] font-mono text-slate-600 flex items-center gap-3">
+              <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-rose-500 inline-block ring-2 ring-rose-200"></span> Partículas del medio</span>
+              <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-lime-500 inline-block ring-2 ring-lime-200"></span> Perfil de onda</span>
+            </div>
+          </div>
+
+          <div class="relative w-full aspect-[16/10] sm:aspect-[16/9] md:aspect-[21/11] bg-[#0b1329] rounded-2xl overflow-hidden border border-slate-800 shadow-xl">
+            <canvas id="waveCanvas" class="w-full h-full block"></canvas>
+            
+            <!-- Superposición de leyenda pedagógica flotante inferior -->
+            <div class="absolute bottom-3 left-3 bg-slate-900/85 backdrop-blur-md border border-slate-700/80 px-3 py-1.5 rounded-xl text-[11px] text-slate-300 font-mono flex items-center gap-3 shadow-lg">
+              <span>Eje Y: Elongación <span class="text-lime-400 font-bold">y(x,t)</span></span>
+              <span class="text-slate-600">•</span>
+              <span>Línea central: <span class="text-slate-400">Equilibrio (y = 0)</span></span>
+            </div>
+          </div>
+
+          <!-- Explicación Didáctica Integrada (Tarjetas con estilo institucional) -->
+          <div class="mt-4 grid grid-cols-2 sm:grid-cols-4 gap-2.5 text-center text-xs">
+            <div class="p-2.5 rounded-xl bg-slate-50 hover:bg-slate-100/80 border border-slate-200 transition">
+              <span class="font-bold text-accent block text-xs">Cresta</span>
+              <span class="text-slate-500 text-[11px]">Máxima elongación (+)</span>
+            </div>
+            <div class="p-2.5 rounded-xl bg-slate-50 hover:bg-slate-100/80 border border-slate-200 transition">
+              <span class="font-bold text-slate-700 block text-xs">Valle</span>
+              <span class="text-slate-500 text-[11px]">Máxima elongación (-)</span>
+            </div>
+            <div class="p-2.5 rounded-xl bg-slate-50 hover:bg-slate-100/80 border border-slate-200 transition">
+              <span class="font-bold text-emerald-700 block text-xs">Amplitud (A)</span>
+              <span class="text-slate-500 text-[11px]">Distancia de 0 a cresta</span>
+            </div>
+            <div class="p-2.5 rounded-xl bg-slate-50 hover:bg-slate-100/80 border border-slate-200 transition">
+              <span class="font-bold text-amber-700 block text-xs">Longitud (λ)</span>
+              <span class="text-slate-500 text-[11px]">Distancia cresta a cresta</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Panel de Control y Telemetría Digital -->
+        <div class="lg:col-span-4 space-y-4">
+          <!-- Instrumentación Numérica en Vivo -->
+          <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200">
+            <h3 class="text-sm font-bold text-slate-800 flex items-center gap-2 mb-3">
+              <i class="fa-solid fa-gauge-high text-accent"></i>
+              Instrumentación Digital en Vivo
+            </h3>
+
+            <div class="grid grid-cols-2 gap-2.5">
+              <!-- Frecuencia -->
+              <div class="p-3 rounded-xl bg-slate-50 border border-slate-200/80 hover:border-slate-300 transition">
+                <span class="text-[10px] uppercase font-bold text-slate-400 block tracking-wider">Frecuencia (f)</span>
+                <div class="text-xl font-extrabold text-slate-800 font-mono mt-0.5">
+                  <span id="dispFreq">1.00</span> <span class="text-xs font-normal text-slate-500">Hz</span>
+                </div>
+                <span class="text-[10px] text-slate-400">ciclos / segundo</span>
+              </div>
+
+              <!-- Período -->
+              <div class="p-3 rounded-xl bg-slate-50 border border-slate-200/80 hover:border-slate-300 transition">
+                <span class="text-[10px] uppercase font-bold text-slate-400 block tracking-wider">Período (T = 1/f)</span>
+                <div class="text-xl font-extrabold text-accent font-mono mt-0.5">
+                  <span id="dispPeriod">1.00</span> <span class="text-xs font-normal text-slate-500">s</span>
+                </div>
+                <span class="text-[10px] text-slate-400">tiempo por ciclo</span>
+              </div>
+
+              <!-- Longitud de onda calculada -->
+              <div class="p-3 rounded-xl bg-slate-50 border border-slate-200/80 hover:border-slate-300 transition">
+                <span class="text-[10px] uppercase font-bold text-slate-400 block tracking-wider">Long. Onda (λ)</span>
+                <div class="text-xl font-extrabold text-amber-600 font-mono mt-0.5">
+                  <span id="dispLambda">4.00</span> <span class="text-xs font-normal text-slate-500">m</span>
+                </div>
+                <span class="text-[10px] text-slate-400">espacio físico λ</span>
+              </div>
+
+              <!-- Velocidad de propagación -->
+              <div class="p-3 rounded-xl bg-slate-50 border border-slate-200/80 hover:border-slate-300 transition">
+                <span class="text-[10px] uppercase font-bold text-slate-400 block tracking-wider">Velocidad (v)</span>
+                <div class="text-xl font-extrabold text-emerald-600 font-mono mt-0.5">
+                  <span id="dispVel">4.00</span> <span class="text-xs font-normal text-slate-500">m/s</span>
+                </div>
+                <span class="text-[10px] text-slate-400">rapidez del medio</span>
+              </div>
+            </div>
+
+            <!-- Fórmula interactiva explicada -->
+            <div class="mt-3.5 p-3.5 rounded-xl bg-[#162144] text-white shadow-sm border border-slate-700">
+              <span class="text-[10px] uppercase tracking-wider text-lime-400 font-bold block mb-1">Ecuación Fundamental de Onda</span>
+              <div class="font-mono text-center text-sm font-bold text-lime-300 py-1.5 bg-black/30 rounded-lg border border-lime-500/30">
+                v = λ · f &nbsp; ⟺ &nbsp; λ = v / f
+              </div>
+              <p id="dynamicPhysicExplanation" class="text-[11px] text-slate-300 mt-2 leading-relaxed">
+                Al duplicar la frecuencia manteniendo constante el medio (<span class="text-lime-400 font-semibold">v fijo</span>), la longitud de onda se reduce a la mitad.
+              </p>
+            </div>
+          </div>
+
+          <!-- Controles con Sliders -->
+          <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200 space-y-4">
+            <h3 class="text-sm font-bold text-slate-800 flex items-center justify-between pb-2 border-b border-slate-100">
+              <span class="flex items-center gap-1.5"><i class="fa-solid fa-sliders text-accent"></i> Variables de Control</span>
+              <span class="text-[11px] font-normal text-slate-400">Ajuste fino</span>
+            </h3>
+
+            <!-- Slider Amplitud -->
+            <div class="space-y-1.5">
+              <div class="flex justify-between text-xs">
+                <label for="sliderA" class="font-semibold text-slate-700 flex items-center gap-1.5">
+                  <i class="fa-solid fa-arrows-up-down text-accent"></i> Amplitud (A)
+                </label>
+                <span class="font-mono font-bold text-accent"><span id="valA">1.2</span> m</span>
+              </div>
+              <input type="range" id="sliderA" min="0.2" max="2.5" step="0.1" value="1.2" oninput="updateWaveParams()">
+              <div class="flex justify-between text-[10px] text-slate-400 font-mono">
+                <span>0.2 m (baja)</span>
+                <span>2.5 m (alta)</span>
+              </div>
+            </div>
+
+            <!-- Slider Frecuencia -->
+            <div class="space-y-1.5">
+              <div class="flex justify-between text-xs">
+                <label for="sliderF" class="font-semibold text-slate-700 flex items-center gap-1.5">
+                  <i class="fa-solid fa-repeat text-accent"></i> Frecuencia (f)
+                </label>
+                <span class="font-mono font-bold text-accent"><span id="valF">1.0</span> Hz</span>
+              </div>
+              <input type="range" id="sliderF" min="0.2" max="3.5" step="0.1" value="1.0" oninput="updateWaveParams()">
+              <div class="flex justify-between text-[10px] text-slate-400 font-mono">
+                <span>0.2 Hz (largo)</span>
+                <span>3.5 Hz (cadencia)</span>
+              </div>
+            </div>
+
+            <!-- Slider Velocidad del Medio -->
+            <div class="space-y-1.5">
+              <div class="flex justify-between text-xs">
+                <label for="sliderV" class="font-semibold text-slate-700 flex items-center gap-1.5">
+                  <i class="fa-solid fa-bolt text-accent"></i> Rapidez del Medio (v)
+                </label>
+                <span class="font-mono font-bold text-accent"><span id="valV">4.0</span> m/s</span>
+              </div>
+              <input type="range" id="sliderV" min="1.0" max="8.0" step="0.2" value="4.0" oninput="updateWaveParams()">
+              <div class="flex justify-between text-[10px] text-slate-400 font-mono">
+                <span>1.0 m/s (elástico)</span>
+                <span>8.0 m/s (rígido)</span>
+              </div>
+            </div>
+
+            <button onclick="rewardModuleProgress(1)" class="w-full py-2.5 rounded-xl bg-accent hover:bg-accent-hover text-white font-semibold text-xs transition flex items-center justify-center gap-2 shadow-sm">
+              <i class="fa-solid fa-check"></i>
+              Confirmar Exploración de Parámetros
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =============================================================== -->
+    <!-- MÓDULO 2: CLASIFICACIÓN DINÁMICA: MEDIO MATERIAL VS VACÍO       -->
+    <!-- =============================================================== -->
+    <section id="module-2" class="module-content hidden space-y-6">
+      <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200">
+        <div class="space-y-1">
+          <span class="text-xs font-bold text-violet-600 uppercase tracking-wider bg-violet-50 px-2.5 py-1 rounded-md border border-violet-200">
+            Medios de Propagación
+          </span>
+          <h2 class="text-xl font-bold text-[#162144]">
+            Clasificación Dinámica: Ondas Mecánicas vs. Electromagnéticas en Vacío
+          </h2>
+          <p class="text-sm text-slate-600 max-w-3xl">
+            Comprueba el postulado físico universal: las <strong>ondas mecánicas</strong> (sonido, ultrasonido) precisan colisiones moleculares de un medio elástico; al vaciar la campana <em>se extinguen por completo</em>. Las <strong>ondas electromagnéticas</strong> (luz, rayos X, radiofrecuencia) son variaciones acopladas de campos eléctrico (<span class="text-cyan-500 font-bold">E</span>) y magnético (<span class="text-violet-500 font-bold">B</span>) que se autosostienen y viajan en el vacío absoluto.
+          </p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <!-- Cámara Experimental de Vacío (Canvas) -->
+        <div class="lg:col-span-8 bg-white rounded-2xl p-5 shadow-sm border border-slate-200 flex flex-col justify-between">
+          <div class="flex flex-wrap items-center justify-between gap-3 mb-3">
+            <div class="flex items-center gap-3">
+              <span class="text-xs font-bold text-slate-700 flex items-center gap-1.5">
+                <i class="fa-solid fa-cube text-slate-500"></i> Cámara Hermética de Simulación
+              </span>
+              <span id="vacuumStateBadge" class="text-xs px-2.5 py-0.5 rounded-full font-semibold bg-emerald-100 text-emerald-800 border border-emerald-300">
+                Presión Normal: 1.0 atm (Con Medio Material)
+              </span>
+            </div>
+
+            <!-- Manómetro analógico/digital -->
+            <div class="flex items-center gap-2 bg-slate-100 px-3 py-1 rounded-lg border border-slate-200">
+              <span class="text-[11px] text-slate-500 font-medium">Presión Cámara:</span>
+              <span id="pressureValue" class="text-xs font-bold font-mono text-[#162144]">100%</span>
+            </div>
+          </div>
+
+          <!-- Canvas de la campana -->
+          <div class="relative w-full aspect-[16/9] md:aspect-[2/1] bg-slate-950 rounded-xl overflow-hidden border border-slate-800 shadow-inner">
+            <canvas id="vacuumCanvas" class="w-full h-full block"></canvas>
+            
+            <!-- Notificación HUD reactiva en pantalla -->
+            <div id="waveStatusOverlay" class="absolute top-4 right-4 bg-slate-900/90 backdrop-blur border border-slate-700 text-slate-200 px-3.5 py-2 rounded-xl text-xs font-mono max-w-xs transition-all duration-300">
+              <div class="flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping"></span>
+                <span id="waveStatusTitle" class="font-bold text-emerald-300">Onda Transmitiendo</span>
+              </div>
+              <p id="waveStatusDesc" class="text-[11px] text-slate-300 mt-1 leading-snug">
+                El medio gaseoso/elástico vibra transportando la perturbación mecánica hacia el sensor receptor.
+              </p>
+            </div>
+          </div>
+
+          <!-- Comparativa Conceptual Inferior -->
+          <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+            <div class="p-3 rounded-xl bg-cyan-50/60 border border-cyan-200">
+              <div class="font-bold text-cyan-900 flex items-center gap-1.5 mb-1">
+                <i class="fa-solid fa-volume-high text-cyan-600"></i> Onda Mecánica (Sonido/Ultrasonido)
+              </div>
+              <p class="text-slate-600 text-[11px] leading-relaxed">
+                Requiere átomos/moléculas que ejerzan fuerzas restauradoras intermoleculares. En el espacio interplanetario o campana al vacío: <strong>Amplitud = 0 (Silencio acústico total)</strong>.
+              </p>
+            </div>
+            <div class="p-3 rounded-xl bg-violet-50/60 border border-violet-200">
+              <div class="font-bold text-violet-900 flex items-center gap-1.5 mb-1">
+                <i class="fa-solid fa-tower-broadcast text-violet-600"></i> Onda Electromagnética (Luz/RF/Rayos X)
+              </div>
+              <p class="text-slate-600 text-[11px] leading-relaxed">
+                Oscilación ortogonal de campos <span class="font-semibold text-cyan-700">E</span> y <span class="font-semibold text-violet-700">B</span> según las leyes de Maxwell. Viaja a <span class="font-mono text-violet-900 font-semibold">c ≈ 300.000 km/s</span> en el vacío sin requerir materia.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Panel de Control de la Cámara -->
+        <div class="lg:col-span-4 space-y-4">
+          <!-- Selector de Fuente de Onda -->
+          <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200 space-y-4">
+            <h3 class="text-sm font-bold text-[#162144] flex items-center gap-2">
+              <i class="fa-solid fa-sliders text-cyan-600"></i>
+              1. Seleccionar Tipo de Emisor
+            </h3>
+
+            <div class="grid grid-cols-1 gap-2.5">
+              <button onclick="setWaveType('mechanical')" id="btnWaveMech" class="p-3 rounded-xl border-2 text-left transition flex items-start gap-3 bg-cyan-50/80 border-cyan-500 shadow-sm">
+                <div class="p-2 rounded-lg bg-cyan-500 text-white mt-0.5">
+                  <i class="fa-solid fa-volume-high"></i>
+                </div>
+                <div>
+                  <div class="font-bold text-xs text-[#162144]">Onda Mecánica</div>
+                  <div class="text-[11px] text-slate-600">Ultrasonido / Parlante acústico (dependiente de medio material)</div>
+                </div>
+              </button>
+
+              <button onclick="setWaveType('electromagnetic')" id="btnWaveEM" class="p-3 rounded-xl border-2 text-left transition flex items-start gap-3 bg-white border-slate-200 hover:border-violet-300">
+                <div class="p-2 rounded-lg bg-slate-200 text-slate-700 mt-0.5">
+                  <i class="fa-solid fa-tower-broadcast"></i>
+                </div>
+                <div>
+                  <div class="font-bold text-xs text-[#162144]">Onda Electromagnética</div>
+                  <div class="text-[11px] text-slate-600">Láser / Radiofrecuencia / Rayos X (campos E y B acoplados)</div>
+                </div>
+              </button>
+            </div>
+
+            <!-- 2. Bomba de Vacío / Presión -->
+            <div class="pt-2 border-t border-slate-200 space-y-3">
+              <h3 class="text-sm font-bold text-[#162144] flex items-center gap-2">
+                <i class="fa-solid fa-gauge-high text-violet-600"></i>
+                2. Control de Bomba Neumática
+              </h3>
+
+              <div class="flex gap-2">
+                <button onclick="evacuateChamber()" id="btnEvacuate" class="flex-1 py-2.5 px-3 rounded-xl bg-slate-800 hover:bg-slate-900 text-white text-xs font-semibold flex items-center justify-center gap-1.5 transition shadow">
+                  <i class="fa-solid fa-circle-arrow-down text-cyan-400"></i>
+                  Evacuar Aire (Vacío)
+                </button>
+                <button onclick="restoreChamber()" id="btnRestore" class="flex-1 py-2.5 px-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold flex items-center justify-center gap-1.5 transition shadow">
+                  <i class="fa-solid fa-circle-arrow-up"></i>
+                  Restaurar Aire
+                </button>
+              </div>
+
+              <!-- Termorregulación y densidad molecular -->
+              <div class="p-3 bg-slate-50 rounded-xl border border-slate-200 space-y-2 text-xs">
+                <div class="flex justify-between text-slate-600">
+                  <span>Densidad Molecular:</span>
+                  <span id="moleculeCountText" class="font-mono font-bold text-slate-800">120 moléculas/vol</span>
+                </div>
+                <div class="flex justify-between text-slate-600">
+                  <span>Atenuación Mecánica:</span>
+                  <span id="attenuationText" class="font-mono font-bold text-emerald-600">0% (Trasmisión Total)</span>
+                </div>
+              </div>
+
+              <button onclick="rewardModuleProgress(2)" class="w-full py-2.5 rounded-xl bg-violet-600 hover:bg-violet-700 text-white font-semibold text-xs transition flex items-center justify-center gap-2 shadow-sm">
+                <i class="fa-solid fa-check"></i>
+                Registrar Conclusión Física
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =============================================================== -->
+    <!-- MÓDULO 3: ESTACIÓN DE ONDAS MECÁNICAS EN SALUD                  -->
+    <!-- =============================================================== -->
+    <section id="module-3" class="module-content hidden space-y-6">
+      <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div class="space-y-1">
+            <span class="text-xs font-bold text-emerald-600 uppercase tracking-wider bg-emerald-50 px-2.5 py-1 rounded-md border border-emerald-200">
+              Aplicación Biomédica Mecánica
+            </span>
+            <h2 class="text-xl font-bold text-[#162144]">
+              Estación de Ondas Mecánicas: Ultrasonido Kinésico y Ecografía Modo-B
+            </h2>
+            <p class="text-sm text-slate-600 max-w-3xl">
+              El efecto piezoeléctrico transforma energía eléctrica en vibración acústica de alta frecuencia (>20 kHz). En fisioterapia genera calor profundo o microcavitación; en diagnóstico por imágenes, los ecos reflejados en las interfases reconstruyen la anatomía en tiempo real.
+            </p>
+          </div>
+          <!-- Selector de Modo de Estación -->
+          <div class="flex rounded-xl bg-slate-100 p-1 border border-slate-200 shrink-0">
+            <button onclick="setMechApp('therapy')" id="btnAppTherapy" class="px-3.5 py-1.5 rounded-lg text-xs font-bold transition bg-white text-emerald-700 shadow-sm">
+              Ultrasonido Kinésico
+            </button>
+            <button onclick="setMechApp('echo')" id="btnAppEcho" class="px-3.5 py-1.5 rounded-lg text-xs font-bold transition text-slate-600 hover:text-slate-900">
+              Ecografía Modo-B
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- VISTA 3A: ULTRASONIDO TERAPÉUTICO EN KINESIOLOGÍA -->
+      <div id="view-therapy" class="space-y-6">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+          <!-- Canvas de Corte Tisular y Propagación -->
+          <div class="lg:col-span-8 bg-white rounded-2xl p-5 shadow-sm border border-slate-200 flex flex-col justify-between">
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-xs font-bold text-slate-800 flex items-center gap-1.5">
+                <i class="fa-solid fa-layer-group text-emerald-600"></i>
+                Corte Histológico Estratificado: Piel, Tejido Celular Subcutáneo, Músculo y Hueso
+              </span>
+              <span id="therapyDepthBadge" class="text-xs font-mono font-bold px-2.5 py-0.5 rounded bg-emerald-100 text-emerald-800">
+                Profundidad eficaz: ~4-5 cm (1 MHz)
+              </span>
+            </div>
+
+            <!-- Canvas Ultrasonido -->
+            <div class="relative w-full aspect-[16/9] md:aspect-[2/1] bg-slate-950 rounded-xl overflow-hidden border border-slate-800 shadow-inner">
+              <canvas id="therapyCanvas" class="w-full h-full block"></canvas>
+              
+              <!-- Mapa térmico termográfico overlay -->
+              <div class="absolute bottom-3 right-3 bg-slate-900/90 backdrop-blur-sm border border-slate-700 p-2.5 rounded-xl text-white text-xs font-mono space-y-1">
+                <div class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Hipertermia Tisular Estimada</div>
+                <div class="flex items-center gap-2">
+                  <div class="w-24 h-2 rounded bg-gradient-to-r from-blue-500 via-amber-400 to-red-600"></div>
+                  <span id="tempElevationText" class="font-bold text-amber-300 font-mono">+2.8 °C</span>
+                </div>
+                <div id="therapyEffectDesc" class="text-[10px] text-slate-300">Vasodilatación y relajación miofascial profunda</div>
+              </div>
+            </div>
+
+            <!-- Fisiopatología Tisular Resumida -->
+            <div class="mt-4 grid grid-cols-3 gap-3 text-center text-xs">
+              <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-200">
+                <span class="font-bold text-slate-800 block text-[11px]">Efecto Térmico</span>
+                <span class="text-slate-500 text-[10px]">Aumento de extensibilidad colágena y flujo sanguíneo local</span>
+              </div>
+              <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-200">
+                <span class="font-bold text-slate-800 block text-[11px]">Efecto Mecánico</span>
+                <span class="text-slate-500 text-[10px]">Micromasaje celular acústico y modulación de permeabilidad</span>
+              </div>
+              <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-200">
+                <span class="font-bold text-slate-800 block text-[11px]">Cavitación Estable</span>
+                <span class="text-slate-500 text-[10px]">Estimulación de síntesis proteica en tenocitos/fibroblastos</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Panel de Ajustes del Transductor -->
+          <div class="lg:col-span-4 space-y-4">
+            <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200 space-y-4">
+              <h3 class="text-sm font-bold text-[#162144] flex items-center gap-2">
+                <i class="fa-solid fa-sliders text-emerald-600"></i>
+                Parámetros del Cabezal Terapéutico
+              </h3>
+
+              <!-- Frecuencia: 1 MHz vs 3 MHz -->
+              <div class="space-y-1.5">
+                <label class="text-xs font-semibold text-slate-700 block">Frecuencia Ultrasónica:</label>
+                <div class="grid grid-cols-2 gap-2">
+                  <button onclick="setTherapyFreq(1)" id="btnFreq1" class="p-2.5 rounded-xl border-2 text-center text-xs font-bold transition border-emerald-500 bg-emerald-50 text-emerald-800">
+                    1 MHz
+                    <span class="block text-[10px] font-normal text-slate-500 mt-0.5">Profundo (músculo/tendón)</span>
+                  </button>
+                  <button onclick="setTherapyFreq(3)" id="btnFreq3" class="p-2.5 rounded-xl border-2 text-center text-xs font-bold transition border-slate-200 hover:border-slate-300 text-slate-700">
+                    3 MHz
+                    <span class="block text-[10px] font-normal text-slate-500 mt-0.5">Superficial (dermis/fascia)</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Emisión: Continuo vs Pulsado -->
+              <div class="space-y-1.5">
+                <label class="text-xs font-semibold text-slate-700 block">Régimen de Emisión:</label>
+                <div class="grid grid-cols-2 gap-2">
+                  <button onclick="setTherapyMode('continuous')" id="btnModeCont" class="p-2.5 rounded-xl border-2 text-center text-xs font-bold transition border-amber-500 bg-amber-50 text-amber-900">
+                    Continuo (100%)
+                    <span class="block text-[10px] font-normal text-slate-500 mt-0.5">Térmico Alto</span>
+                  </button>
+                  <button onclick="setTherapyMode('pulsed')" id="btnModePulsed" class="p-2.5 rounded-xl border-2 text-center text-xs font-bold transition border-slate-200 hover:border-slate-300 text-slate-700">
+                    Pulsado (20%)
+                    <span class="block text-[10px] font-normal text-slate-500 mt-0.5">A-térmico / Antiinflamatorio</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Intensidad W/cm2 -->
+              <div class="space-y-1.5 pt-2 border-t border-slate-200">
+                <div class="flex justify-between text-xs">
+                  <span class="font-semibold text-slate-700">Intensidad Acústica:</span>
+                  <span class="font-mono font-bold text-emerald-700"><span id="valIntensity">1.2</span> W/cm²</span>
+                </div>
+                <input type="range" id="sliderIntensity" min="0.2" max="2.5" step="0.1" value="1.2" oninput="updateTherapyIntensity()">
+                <div class="flex justify-between text-[10px] text-slate-400 font-mono">
+                  <span>0.2 W/cm² (Sub-agudo)</span>
+                  <span>2.5 W/cm² (Crónico)</span>
+                </div>
+              </div>
+
+              <div class="p-3 bg-emerald-50 rounded-xl border border-emerald-200 text-xs text-emerald-950 space-y-1">
+                <span class="font-bold flex items-center gap-1 text-[11px] text-emerald-800">
+                  <i class="fa-solid fa-circle-info text-emerald-600"></i> Ley Física de Atenuación Acústica:
+                </span>
+                <p class="text-[11px] leading-relaxed text-emerald-900">
+                  A mayor frecuencia (3 MHz), mayor absorción por fricción interna y menor penetración tisular. A 1 MHz la onda penetra profundamente hasta interfaces óseas.
+                </p>
+              </div>
+
+              <button onclick="rewardModuleProgress(3)" class="w-full py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-xs transition flex items-center justify-center gap-2 shadow-sm">
+                <i class="fa-solid fa-check"></i>
+                Completar Protocolo Fisiokinésico
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- VISTA 3B: ECOGRAFÍA MODO-B (DIAGNÓSTICO POR IMÁGENES) -->
+      <div id="view-echo" class="hidden space-y-6">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+          <!-- Pantalla de Escaneo Ecográfico Dual (Físico vs Imagen Reconstruida) -->
+          <div class="lg:col-span-8 bg-white rounded-2xl p-5 shadow-sm border border-slate-200">
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-xs font-bold text-slate-800 flex items-center gap-1.5">
+                <i class="fa-solid fa-barcode text-cyan-600"></i>
+                Escaneo Ecográfico en Vivo: Simulación Acústica de Interfaces e Imagen Modo-B
+              </span>
+              <span class="text-xs font-mono text-cyan-700 bg-cyan-50 border border-cyan-200 px-2.5 py-0.5 rounded">
+                Velocidad promedio tejidos: 1540 m/s
+              </span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <!-- Visualizador Físico del Eco -->
+              <div class="space-y-1">
+                <span class="text-[11px] font-bold text-slate-600 uppercase tracking-wider block">1. Propagación y Rebote en Tejido</span>
+                <div class="relative aspect-square bg-slate-950 rounded-xl overflow-hidden border border-slate-800">
+                  <canvas id="echoPhysCanvas" class="w-full h-full block"></canvas>
+                  <div class="absolute top-2 left-2 bg-slate-900/80 px-2 py-0.5 rounded text-[10px] text-cyan-300 font-mono">
+                    Pulso Incidentes &amp; Ecos
+                  </div>
+                </div>
+              </div>
+
+              <!-- Monitor Ecográfico Reconstruido en Tiempo Real -->
+              <div class="space-y-1">
+                <span class="text-[11px] font-bold text-slate-600 uppercase tracking-wider block">2. Monitor Clínico Modo-B Reconstruido</span>
+                <div class="relative aspect-square bg-black rounded-xl overflow-hidden border border-slate-800">
+                  <canvas id="echoBModeCanvas" class="w-full h-full block"></canvas>
+                  <div class="absolute top-2 right-2 bg-black/70 px-2 py-0.5 rounded text-[10px] text-emerald-400 font-mono">
+                    MODO-B TIEMPO REAL
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Glosario Semiótico Ecográfico -->
+            <div class="mt-4 grid grid-cols-3 gap-2 text-center text-xs">
+              <div class="p-2 rounded-xl bg-slate-50 border border-slate-200">
+                <span class="font-bold text-slate-800 block text-[11px]">Anecoico (Negro)</span>
+                <span class="text-slate-500 text-[10px]">Líquidos puros (quistes, orina, vasos). Sin reflexión</span>
+              </div>
+              <div class="p-2 rounded-xl bg-slate-50 border border-slate-200">
+                <span class="font-bold text-slate-800 block text-[11px]">Hiperecoico (Blanco brillante)</span>
+                <span class="text-slate-500 text-[10px]">Hueso, cálculos, fascias. Gran salto de impedancia</span>
+              </div>
+              <div class="p-2 rounded-xl bg-slate-50 border border-slate-200">
+                <span class="font-bold text-slate-800 block text-[11px]">Sombra Acústica</span>
+                <span class="text-slate-500 text-[10px]">Oscuridad posterior por absorción o reflexión del 99%</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Controles del Ecógrafo y Estructuras -->
+          <div class="lg:col-span-4 space-y-4">
+            <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200 space-y-4">
+              <h3 class="text-sm font-bold text-[#162144] flex items-center gap-2">
+                <i class="fa-solid fa-bullseye text-cyan-600"></i>
+                Fantoma de Interfases Tisulares
+              </h3>
+
+              <div class="space-y-2">
+                <span class="text-xs text-slate-600 block">Selecciona estructura patológica para escanear:</span>
+                
+                <button onclick="setEchoTarget('cyst')" id="btnTargetCyst" class="w-full p-2.5 rounded-xl border-2 text-left text-xs font-semibold flex items-center justify-between transition border-cyan-500 bg-cyan-50/70 text-cyan-900">
+                  <span class="flex items-center gap-2">
+                    <span class="w-3 h-3 rounded-full bg-slate-900"></span> Quiste Líquido Anecoico
+                  </span>
+                  <span class="text-[10px] text-slate-500 font-mono">Refuerzo post.</span>
+                </button>
+
+                <button onclick="setEchoTarget('calcification')" id="btnTargetCalc" class="w-full p-2.5 rounded-xl border-2 text-left text-xs font-semibold flex items-center justify-between transition border-slate-200 hover:border-slate-300 text-slate-700">
+                  <span class="flex items-center gap-2">
+                    <span class="w-3 h-3 rounded-full bg-white border border-slate-400"></span> Calcificación / Hueso
+                  </span>
+                  <span class="text-[10px] text-slate-500 font-mono">Sombra acústica</span>
+                </button>
+              </div>
+
+              <!-- Impedancia acústica Z = d * v -->
+              <div class="p-3 bg-slate-50 rounded-xl border border-slate-200 space-y-2 text-xs">
+                <span class="font-bold text-slate-800 block text-[11px]">Principio Físico: Impedancia Acústica (Z)</span>
+                <div class="font-mono text-center bg-white p-1 rounded border border-slate-200 text-cyan-800 font-bold text-xs">
+                  Z = ρ · c &nbsp; [Rayls]
+                </div>
+                <p class="text-[11px] text-slate-600 leading-snug">
+                  El coeficiente de reflexión depende de la diferencia (ΔZ) entre dos medios contiguos. Sin gel conductor (aire-piel, ΔZ inmenso), el 99.9% de la onda se refleja en la superficie y no ingresa al cuerpo humano.
+                </p>
+              </div>
+
+              <div class="space-y-1.5">
+                <div class="flex justify-between text-xs">
+                  <span class="font-semibold text-slate-700">Ganancia General (Gain):</span>
+                  <span class="font-mono font-bold text-cyan-700"><span id="valEchoGain">50</span>%</span>
+                </div>
+                <input type="range" id="sliderGain" min="20" max="90" step="5" value="50" oninput="updateEchoGain()">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =============================================================== -->
+    <!-- MÓDULO 4: ESTACIÓN DE ONDAS ELECTROMAGNÉTICAS EN SALUD          -->
+    <!-- =============================================================== -->
+    <section id="module-4" class="module-content hidden space-y-6">
+      <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div class="space-y-1">
+            <span class="text-xs font-bold text-violet-600 uppercase tracking-wider bg-violet-50 px-2.5 py-1 rounded-md border border-violet-200">
+              Aplicación Biomédica Electromagnética
+            </span>
+            <h2 class="text-xl font-bold text-[#162144]">
+              Estación de Ondas Electromagnéticas: Magnetoterapia y Resonancia Magnética (RMI)
+            </h2>
+            <p class="text-sm text-slate-600 max-w-3xl">
+              Los campos electromagnéticos atraviesan tejidos sin necesidad de soporte elástico material. En fisioterapia reordenan cargas iónicas acelerando la osteogénesis; en RMI, ondas de radiofrecuencia alineadas con un campo estático (B₀) perturban protones de hidrógeno para generar imágenes de resolución anatómica milimétrica.
+            </p>
+          </div>
+          <!-- Selector de Modo de Estación EM -->
+          <div class="flex rounded-xl bg-slate-100 p-1 border border-slate-200 shrink-0">
+            <button onclick="setEMApp('magneto')" id="btnAppMagneto" class="px-3.5 py-1.5 rounded-lg text-xs font-bold transition bg-white text-violet-700 shadow-sm">
+              Magnetoterapia
+            </button>
+            <button onclick="setEMApp('mri')" id="btnAppMRI" class="px-3.5 py-1.5 rounded-lg text-xs font-bold transition text-slate-600 hover:text-slate-900">
+              Resonancia Magnética (RMI)
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- VISTA 4A: MAGNETOTERAPIA KINÉSICA -->
+      <div id="view-magneto" class="space-y-6">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+          <!-- Canvas Solenoide y Células -->
+          <div class="lg:col-span-8 bg-white rounded-2xl p-5 shadow-sm border border-slate-200 flex flex-col justify-between">
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-xs font-bold text-slate-800 flex items-center gap-1.5">
+                <i class="fa-solid fa-compass text-violet-600"></i>
+                Solenoide Kinésico: Líneas de Campo B e Interacción Celular Microscópica
+              </span>
+              <span id="magnetoModeBadge" class="text-xs font-mono font-bold px-2.5 py-0.5 rounded bg-violet-100 text-violet-800">
+                Campo Pulsado ELF: 50 Hz | 50 Gauss
+              </span>
+            </div>
+
+            <!-- Canvas Magneto -->
+            <div class="relative w-full aspect-[16/9] md:aspect-[2/1] bg-slate-950 rounded-xl overflow-hidden border border-slate-800 shadow-inner">
+              <canvas id="magnetoCanvas" class="w-full h-full block"></canvas>
+              
+              <!-- Ventana microscópica celular overlay -->
+              <div class="absolute bottom-3 right-3 bg-slate-900/90 backdrop-blur border border-slate-700 p-3 rounded-xl text-white text-xs max-w-xs space-y-1">
+                <div class="flex items-center justify-between">
+                  <span class="text-[10px] text-violet-300 font-bold uppercase tracking-wider">Efecto Celular Local</span>
+                  <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                </div>
+                <div class="text-[11px] text-slate-300 leading-snug">
+                  • Reorientación de iones de calcio (Ca²⁺) transmembrana.<br>
+                  • Aumento del flujo microcapilar y síntesis de colágeno óseo.
+                </div>
+              </div>
+            </div>
+
+            <!-- Beneficios Biomédicos -->
+            <div class="mt-4 grid grid-cols-3 gap-3 text-center text-xs">
+              <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-200">
+                <span class="font-bold text-violet-800 block text-[11px]">Efecto Piezoeléctrico Óseo</span>
+                <span class="text-slate-500 text-[10px]">Acelera consolidación de fracturas mediante estímulo osteoblástico</span>
+              </div>
+              <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-200">
+                <span class="font-bold text-violet-800 block text-[11px]">Efecto Antiinflamatorio</span>
+                <span class="text-slate-500 text-[10px]">Restablecimiento del potencial de membrana en reposo</span>
+              </div>
+              <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-200">
+                <span class="font-bold text-violet-800 block text-[11px]">Vasodilatación ELF</span>
+                <span class="text-slate-500 text-[10px]">Aumento de la presión parcial de oxígeno tisular (pO₂)</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Controles Solenoide -->
+          <div class="lg:col-span-4 space-y-4">
+            <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200 space-y-4">
+              <h3 class="text-sm font-bold text-[#162144] flex items-center gap-2">
+                <i class="fa-solid fa-sliders text-violet-600"></i>
+                Parámetros del Aplicador Magnético
+              </h3>
+
+              <!-- Frecuencia ELF -->
+              <div class="space-y-1.5">
+                <div class="flex justify-between text-xs">
+                  <span class="font-semibold text-slate-700">Frecuencia Extremadamente Baja (ELF):</span>
+                  <span class="font-mono font-bold text-violet-700"><span id="valMagFreq">50</span> Hz</span>
+                </div>
+                <input type="range" id="sliderMagFreq" min="10" max="100" step="10" value="50" oninput="updateMagnetoParams()">
+                <div class="flex justify-between text-[10px] text-slate-400 font-mono">
+                  <span>10 Hz (sedante/analgésico)</span>
+                  <span>100 Hz (trófico/óseo)</span>
+                </div>
+              </div>
+
+              <!-- Intensidad de Campo (Gauss) -->
+              <div class="space-y-1.5">
+                <div class="flex justify-between text-xs">
+                  <span class="font-semibold text-slate-700">Intensidad de Campo Magnético:</span>
+                  <span class="font-mono font-bold text-violet-700"><span id="valMagGauss">50</span> Gauss</span>
+                </div>
+                <input type="range" id="sliderMagGauss" min="10" max="100" step="5" value="50" oninput="updateMagnetoParams()">
+                <div class="flex justify-between text-[10px] text-slate-400 font-mono">
+                  <span>10 Gauss (tejidos blandos)</span>
+                  <span>100 Gauss (fémur/tibia)</span>
+                </div>
+              </div>
+
+              <!-- Régimen de Emisión -->
+              <div class="space-y-1.5 pt-2 border-t border-slate-200">
+                <label class="text-xs font-semibold text-slate-700 block">Modulación de Emisión:</label>
+                <div class="grid grid-cols-2 gap-2">
+                  <button onclick="setMagMode('pulsed')" id="btnMagPulsed" class="p-2.5 rounded-xl border-2 text-center text-xs font-bold transition border-violet-500 bg-violet-50 text-violet-900">
+                    Pulsado (ELF)
+                  </button>
+                  <button onclick="setMagMode('continuous')" id="btnMagCont" class="p-2.5 rounded-xl border-2 text-center text-xs font-bold transition border-slate-200 hover:border-slate-300 text-slate-700">
+                    Continuo
+                  </button>
+                </div>
+              </div>
+
+              <div class="p-3 bg-violet-50 rounded-xl border border-violet-200 text-xs text-violet-950 space-y-1">
+                <span class="font-bold flex items-center gap-1 text-[11px] text-violet-800">
+                  <i class="fa-solid fa-shield-halved text-violet-600"></i> Contraindicación Clínica Absoluta:
+                </span>
+                <p class="text-[11px] leading-relaxed text-violet-900">
+                  Marcapasos cardíacos, desfibriladores implantados y hemorragias activas. Las ondas electromagnéticas inducen corrientes que pueden desprogramar o inhibir el generador.
+                </p>
+              </div>
+
+              <button onclick="rewardModuleProgress(4)" class="w-full py-2.5 rounded-xl bg-violet-600 hover:bg-violet-700 text-white font-semibold text-xs transition flex items-center justify-center gap-2 shadow-sm">
+                <i class="fa-solid fa-check"></i>
+                Completar Análisis Electromagnético
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- VISTA 4B: RESONANCIA MAGNÉTICA NUCLEAR (RMI) -->
+      <div id="view-mri" class="hidden space-y-6">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+          <!-- Simulador Cuántico/Físico de Protones y Radiofrecuencia -->
+          <div class="lg:col-span-8 bg-white rounded-2xl p-5 shadow-sm border border-slate-200">
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-xs font-bold text-slate-800 flex items-center gap-1.5">
+                <i class="fa-solid fa-microchip text-violet-600"></i>
+                Física Cuántica de Protones (¹H) y Frecuencia de Larmor
+              </span>
+              <span id="mriStepBadge" class="text-xs font-mono font-bold px-2.5 py-0.5 rounded bg-violet-100 text-violet-800">
+                Paso 1: Alineación en Campo B₀
+              </span>
+            </div>
+
+            <!-- Canvas de Protones Precesando -->
+            <div class="relative w-full aspect-[16/9] md:aspect-[2/1] bg-slate-950 rounded-xl overflow-hidden border border-slate-800 shadow-inner">
+              <canvas id="mriCanvas" class="w-full h-full block"></canvas>
+              
+              <!-- Curva FID (Decaimiento por Inducción Libre) overlay -->
+              <div class="absolute bottom-2 left-2 bg-slate-900/90 backdrop-blur border border-slate-700 p-2 rounded-lg text-white font-mono text-[10px] space-y-0.5">
+                <span class="text-violet-300 font-bold block">Señal FID (Radiofrecuencia emitida):</span>
+                <div class="w-32 h-6 flex items-center justify-center bg-black/40 rounded border border-slate-800">
+                  <span id="fidSignalText" class="text-cyan-400 font-bold">Captando Ecos...</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- 4 Pasos Metodológicos RMI -->
+            <div class="mt-4 grid grid-cols-4 gap-2 text-center text-xs">
+              <button onclick="setMRIStep(1)" id="btnStep1" class="p-2 rounded-xl border-2 transition border-violet-500 bg-violet-50 text-violet-900 font-bold">
+                1. Campo B₀
+                <span class="block text-[10px] font-normal text-slate-500">Alineación</span>
+              </button>
+              <button onclick="setMRIStep(2)" id="btnStep2" class="p-2 rounded-xl border-2 transition border-slate-200 hover:border-slate-300 text-slate-700">
+                2. Pulso RF 90°
+                <span class="block text-[10px] font-normal text-slate-500">Excitación Larmor</span>
+              </button>
+              <button onclick="setMRIStep(3)" id="btnStep3" class="p-2 rounded-xl border-2 transition border-slate-200 hover:border-slate-300 text-slate-700">
+                3. Relajación T1/T2
+                <span class="block text-[10px] font-normal text-slate-500">Emisión de Señal</span>
+              </button>
+              <button onclick="setMRIStep(4)" id="btnStep4" class="p-2 rounded-xl border-2 transition border-slate-200 hover:border-slate-300 text-slate-700">
+                4. Corte Tomográfico
+                <span class="block text-[10px] font-normal text-slate-500">Reconstrucción</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Panel de Imagen RMI y Fundamento -->
+          <div class="lg:col-span-4 space-y-4">
+            <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200 space-y-4">
+              <h3 class="text-sm font-bold text-[#162144] flex items-center gap-2">
+                <i class="fa-solid fa-image text-violet-600"></i>
+                Reconstrucción Anatómica RMI
+              </h3>
+
+              <!-- Simulador de corte por RMI -->
+              <div class="relative aspect-square bg-slate-900 rounded-xl overflow-hidden border border-slate-800 flex items-center justify-center p-3 text-center">
+                <div id="mriDisplayImage" class="w-full h-full rounded-lg bg-slate-950 flex flex-col items-center justify-center border border-slate-800 p-2">
+                  <div class="w-24 h-24 rounded-full border-4 border-violet-500/40 flex items-center justify-center relative overflow-hidden bg-slate-900">
+                    <div class="w-16 h-16 rounded-full border-2 border-cyan-400/50 flex items-center justify-center bg-violet-950/40">
+                      <i class="fa-solid fa-brain text-cyan-300"></i>
+                    </div>
+                  </div>
+                  <span class="text-xs font-mono font-bold text-violet-300 mt-2">Corte Sagital Encéfalo</span>
+                  <span id="mriWeightingText" class="text-[10px] text-slate-400 font-mono">Secuencia T1: Líquido cefalorraquídeo oscuro</span>
+                </div>
+              </div>
+
+              <!-- Ponderación T1 vs T2 -->
+              <div class="space-y-1.5">
+                <label class="text-xs font-semibold text-slate-700 block">Ponderación Tisular:</label>
+                <div class="grid grid-cols-2 gap-2">
+                  <button onclick="setMRIWeighting('T1')" id="btnWeightT1" class="p-2 rounded-lg border-2 text-xs font-bold transition border-violet-500 bg-violet-50 text-violet-900">
+                    Ponderada en T1
+                    <span class="block text-[9px] font-normal text-slate-500">Anatomía precisa</span>
+                  </button>
+                  <button onclick="setMRIWeighting('T2')" id="btnWeightT2" class="p-2 rounded-lg border-2 text-xs font-bold transition border-slate-200 hover:border-slate-300 text-slate-700">
+                    Ponderada en T2
+                    <span class="block text-[9px] font-normal text-slate-500">Líquido brillante (edema)</span>
+                  </button>
+                </div>
+              </div>
+
+              <div class="p-3 bg-slate-50 rounded-xl border border-slate-200 text-xs space-y-1 text-slate-600">
+                <span class="font-bold text-[#162144] block text-[11px]">Ecuación de Larmor:</span>
+                <div class="font-mono text-center font-bold text-violet-800 bg-white p-1 rounded border border-slate-200 text-xs">
+                  ω₀ = γ · B₀
+                </div>
+                <p class="text-[11px] text-slate-500 leading-snug">
+                  La frecuencia de precesión de los protones de hidrógeno es directamente proporcional a la intensidad del campo magnético principal.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =============================================================== -->
+    <!-- MÓDULO 5: RETOS CLÍNICOS Y EVALUACIÓN FORMATIVA                 -->
+    <!-- =============================================================== -->
+    <section id="module-5" class="module-content hidden space-y-6">
+      <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div class="space-y-1">
+            <span class="text-xs font-bold text-emerald-600 uppercase tracking-wider bg-emerald-50 px-2.5 py-1 rounded-md border border-emerald-200">
+              Evaluación de Competencias
+            </span>
+            <h2 class="text-xl font-bold text-[#162144]">
+              Estación de Casos Clínicos y Toma de Decisiones Biomédicas
+            </h2>
+            <p class="text-sm text-slate-600 max-w-3xl">
+              Aplica los principios fisicoquímicos en escenarios reales de Kinesiología y Diagnóstico por Imágenes para verificar tu comprensión clínica.
+            </p>
+          </div>
+          <button onclick="generateReportModal()" class="px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-semibold text-xs flex items-center gap-2 transition shadow">
+            <i class="fa-solid fa-file-waveform text-cyan-400"></i>
+            Generar Informe Académico
+          </button>
+        </div>
+      </div>
+
+      <!-- Grid de 4 Casos Clínicos -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        
+        <!-- CASO 1: KINESIOLOGÍA -->
+        <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200 flex flex-col justify-between space-y-4">
+          <div class="space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-cyan-700 bg-cyan-50 px-2 py-0.5 rounded border border-cyan-200">Caso Clínico 1 • Fisioterapia</span>
+              <span id="case1Status" class="text-xs font-semibold text-slate-400 font-mono">Pendiente</span>
+            </div>
+            <h3 class="font-bold text-sm text-[#162144]">
+              Paciente con contractura crónica profunda del psoas mayor y paravertebrales lumbares
+            </h3>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              Un paciente requiere hipertermia tisular profunda y microrrelajación elastómera. ¿Qué tipo de onda y qué parámetro de emisión están indicados según la física ondulatoria?
+            </p>
+          </div>
+
+          <div class="space-y-2">
+            <button onclick="answerCase(1, 'A')" id="btnCase1A" class="w-full p-3 rounded-xl border border-slate-200 text-left text-xs text-slate-700 hover:bg-slate-50 transition flex items-center justify-between">
+              <span>A) Onda electromagnética de rayos X a 10 Hz continuo.</span>
+            </button>
+            <button onclick="answerCase(1, 'B')" id="btnCase1B" class="w-full p-3 rounded-xl border border-slate-200 text-left text-xs text-slate-700 hover:bg-slate-50 transition flex items-center justify-between">
+              <span>B) Onda mecánica de ultrasonido terapéutico a 1 MHz continuo.</span>
+            </button>
+            <button onclick="answerCase(1, 'C')" id="btnCase1C" class="w-full p-3 rounded-xl border border-slate-200 text-left text-xs text-slate-700 hover:bg-slate-50 transition flex items-center justify-between">
+              <span>C) Onda mecánica de ultrasonido a 3 MHz pulsado al 10%.</span>
+            </button>
+          </div>
+
+          <!-- Feedback dinámico -->
+          <div id="feedbackCase1" class="hidden p-3 rounded-xl text-xs leading-relaxed"></div>
+        </div>
+
+        <!-- CASO 2: DIAGNÓSTICO POR IMÁGENES -->
+        <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200 flex flex-col justify-between space-y-4">
+          <div class="space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-cyan-700 bg-cyan-50 px-2 py-0.5 rounded border border-cyan-200">Caso Clínico 2 • Ecografía</span>
+              <span id="case2Status" class="text-xs font-semibold text-slate-400 font-mono">Pendiente</span>
+            </div>
+            <h3 class="font-bold text-sm text-[#162144]">
+              Limitación diagnóstica en pulmón aireado y corteza ósea compacta
+            </h3>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              ¿Por qué el transductor ecográfico no puede visualizar adecuadamente la médula ósea a través del hueso ni el parénquima pulmonar profundo?
+            </p>
+          </div>
+
+          <div class="space-y-2">
+            <button onclick="answerCase(2, 'A')" id="btnCase2A" class="w-full p-3 rounded-xl border border-slate-200 text-left text-xs text-slate-700 hover:bg-slate-50 transition flex items-center justify-between">
+              <span>A) El hueso y el aire presentan una disparidad extrema de impedancia acústica (ΔZ), provocando reflexión casi total (99%) y sombra acústica.</span>
+            </button>
+            <button onclick="answerCase(2, 'B')" id="btnCase2B" class="w-full p-3 rounded-xl border border-slate-200 text-left text-xs text-slate-700 hover:bg-slate-50 transition flex items-center justify-between">
+              <span>B) Porque los ultrasonidos se transforman espontáneamente en ondas electromagnéticas en el hueso.</span>
+            </button>
+            <button onclick="answerCase(2, 'C')" id="btnCase2C" class="w-full p-3 rounded-xl border border-slate-200 text-left text-xs text-slate-700 hover:bg-slate-50 transition flex items-center justify-between">
+              <span>C) La frecuencia ultrasónica de los ecógrafos es demasiado baja (<10 Hz) para vibrar en tejidos sólidos.</span>
+            </button>
+          </div>
+
+          <div id="feedbackCase2" class="hidden p-3 rounded-xl text-xs leading-relaxed"></div>
+        </div>
+
+        <!-- CASO 3: RESONANCIA MAGNÉTICA ARTICULAR -->
+        <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200 flex flex-col justify-between space-y-4">
+          <div class="space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-violet-700 bg-violet-50 px-2 py-0.5 rounded border border-violet-200">Caso Clínico 3 • RMI Articular</span>
+              <span id="case3Status" class="text-xs font-semibold text-slate-400 font-mono">Pendiente</span>
+            </div>
+            <h3 class="font-bold text-sm text-[#162144]">
+              Rotura de ligamento cruzado anterior (LCA) y menisco de rodilla
+            </h3>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              ¿Por qué la Resonancia Magnética (RMI) es el patrón de oro (Gold Standard) frente a las radiografías convencionales para diagnosticar lesiones ligamentosas?
+            </p>
+          </div>
+
+          <div class="space-y-2">
+            <button onclick="answerCase(3, 'A')" id="btnCase3A" class="w-full p-3 rounded-xl border border-slate-200 text-left text-xs text-slate-700 hover:bg-slate-50 transition flex items-center justify-between">
+              <span>A) Porque los rayos X emiten sonido mecánico que daña el cartílago articular.</span>
+            </button>
+            <button onclick="answerCase(3, 'B')" id="btnCase3B" class="w-full p-3 rounded-xl border border-slate-200 text-left text-xs text-slate-700 hover:bg-slate-50 transition flex items-center justify-between">
+              <span>B) RMI capta la densidad protónica del agua tisular y los tiempos de relajación T1/T2, brindando resolución insuperable en partes blandas sin radiación ionizante.</span>
+            </button>
+            <button onclick="answerCase(3, 'C')" id="btnCase3C" class="w-full p-3 rounded-xl border border-slate-200 text-left text-xs text-slate-700 hover:bg-slate-50 transition flex items-center justify-between">
+              <span>C) La radiografía solo detecta ondas mecánicas mientras los meniscos son magnéticos.</span>
+            </button>
+          </div>
+
+          <div id="feedbackCase3" class="hidden p-3 rounded-xl text-xs leading-relaxed"></div>
+        </div>
+
+        <!-- CASO 4: SEGURIDAD BIOMÉDICA -->
+        <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200 flex flex-col justify-between space-y-4">
+          <div class="space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-rose-700 bg-rose-50 px-2 py-0.5 rounded border border-rose-200">Caso Clínico 4 • Seguridad Biomédica</span>
+              <span id="case4Status" class="text-xs font-semibold text-slate-400 font-mono">Pendiente</span>
+            </div>
+            <h3 class="font-bold text-sm text-[#162144]">
+              Paciente deportista portador de marcapasos cardíaco y osteosíntesis ferromagnética
+            </h3>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              El médico kinesiólogo planifica la rehabilitación de una fractura ósea. ¿Por qué están contraindicadas la Magnetoterapia intensa y la RMI?
+            </p>
+          </div>
+
+          <div class="space-y-2">
+            <button onclick="answerCase(4, 'A')" id="btnCase4A" class="w-full p-3 rounded-xl border border-slate-200 text-left text-xs text-slate-700 hover:bg-slate-50 transition flex items-center justify-between">
+              <span>A) Porque los campos electromagnéticos variables inducen fuerzas de Lorentz sobre metales ferromagnéticos y corrientes parásitas que desconfiguran el circuito del marcapasos.</span>
+            </button>
+            <button onclick="answerCase(4, 'B')" id="btnCase4B" class="w-full p-3 rounded-xl border border-slate-200 text-left text-xs text-slate-700 hover:bg-slate-50 transition flex items-center justify-between">
+              <span>B) Porque los ultrasonidos mecánicos calientan las baterías hasta hacerlas explotar inmediatamente.</span>
+            </button>
+            <button onclick="answerCase(4, 'C')" id="btnCase4C" class="w-full p-3 rounded-xl border border-slate-200 text-left text-xs text-slate-700 hover:bg-slate-50 transition flex items-center justify-between">
+              <span>C) No existe contraindicación si se aplica en la extremidad inferior opuesta.</span>
+            </button>
+          </div>
+
+          <div id="feedbackCase4" class="hidden p-3 rounded-xl text-xs leading-relaxed"></div>
+        </div>
+      </div>
+    </section>
+    </div>
+  </main>
+
+  <!-- ==================== MODAL REPORTE ACADÉMICO ==================== -->
+  <div id="reportModal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-lg w-full p-6 shadow-2xl border border-slate-200 space-y-4">
+      <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+        <div class="flex items-center gap-2">
+          <div class="p-2 rounded-xl bg-cyan-50 text-cyan-600 border border-cyan-200">
+            <i class="fa-solid fa-graduation-cap"></i>
+          </div>
+          <div>
+            <h3 class="font-bold text-[#162144] text-base">Reporte de Desempeño Académico</h3>
+            <span class="text-xs text-slate-400">Introducción a la Fisicoquímica Biomédica</span>
+          </div>
+        </div>
+        <button onclick="closeReportModal()" class="text-slate-400 hover:text-slate-600 p-1">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="space-y-3 text-xs text-slate-700">
+        
+
+        <div class="flex justify-between p-3 rounded-xl bg-slate-50 border border-slate-200">
+          <span class="font-semibold text-slate-600">Competencia Ondulatoria:</span>
+          <span id="modalCompetencyText" class="font-bold text-emerald-600">En Desarrollo</span>
+        </div>
+
+        <div class="p-3 bg-cyan-50/50 rounded-xl border border-cyan-100 text-[11px] text-cyan-950">
+          <strong>Dictamen Pedagógico:</strong> Ha integrado con rigurosidad los principios morfológicos de onda (λ, A, f, T), la diferencia esencial entre ondas mecánicas y campos electromagnéticos en el vacío, y sus aplicaciones cruciales en Ultrasonoterapia, Ecografía clínica, Magnetoterapia y Resonancia Magnética Nuclear.
+        </div>
+      </div>
+
+      <div class="flex justify-end gap-2 pt-2 border-t border-slate-100">
+        <button onclick="window.print()" class="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs flex items-center gap-1.5 transition">
+          <i class="fa-solid fa-print"></i> Imprimir / Guardar PDF
+        </button>
+        <button onclick="closeReportModal()" class="px-4 py-2 rounded-xl bg-cyan-600 hover:bg-cyan-700 text-white font-semibold text-xs transition">
+          Aceptar
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- MODAL DE VADEMÉCUM DE ONDAS EN BIOMEDICINA                                -->
+  <!-- ========================================================================= -->
+  <div id="modal-formulas" class="fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-2xl max-w-2xl w-full p-6 shadow-2xl border border-slate-200 max-h-[90vh] overflow-y-auto custom-scroll">
+      <div class="flex items-center justify-between pb-3 border-b border-slate-200 mb-4">
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-lg bg-accent text-white flex items-center justify-center text-sm font-bold">
+            <i class="fa-solid fa-book-bookmark"></i>
+          </div>
+          <div>
+            <h3 class="text-base font-bold text-slate-800">Vademécum de Ondas & Física Biomédica</h3>
+            <p class="text-[11px] text-slate-500 font-medium">Cátedra de Introducción a la Fisicoquímica - UCCuyo</p>
+          </div>
+        </div>
+        <button onclick="closeFormulasModal()" class="text-slate-400 hover:text-slate-700 text-lg">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="space-y-4 text-xs text-slate-700">
+        <!-- Parámetros Fundamentales -->
+        <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-200">
+          <div class="font-bold text-accent text-xs mb-1">1. Ecuación Fundamental del Movimiento Ondulatorio</div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 my-1 font-mono text-center">
+            <div class="bg-white p-2 rounded border border-slate-200 font-bold">v = λ · f</div>
+            <div class="bg-white p-2 rounded border border-slate-200 font-bold">f = 1 / T &nbsp;|&nbsp; T = 1 / f</div>
+          </div>
+          <p class="text-[11px] text-slate-600 leading-relaxed mt-1">
+            Una onda transmite energía sin transportar materia. <strong>λ (longitud de onda)</strong> es la distancia física entre dos crestas consecutivas; <strong>T (período)</strong> es el tiempo para completar un ciclo y <strong>f (frecuencia, Hz)</strong> los ciclos por segundo.
+          </p>
+        </div>
+
+        <!-- Clasificación de Ondas -->
+        <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-200">
+          <div class="font-bold text-accent text-xs mb-1">2. Ondas Mecánicas vs. Ondas Electromagnéticas</div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 my-1 text-center font-mono text-xs">
+            <div class="bg-white p-2 rounded border border-slate-200">
+              <span class="text-cyan-700 font-bold block">Onda Mecánica</span>
+              <span class="text-[11px] text-slate-600 font-sans">Requiere medio elástico deformable (v = 0 en vacío). Ej: ultrasonido, sonido.</span>
+            </div>
+            <div class="bg-white p-2 rounded border border-slate-200">
+              <span class="text-violet-700 font-bold block">Onda Electromagnética</span>
+              <span class="text-[11px] text-slate-600 font-sans">Campos E y B acoplados; viaja en el vacío a c ≈ 300.000 km/s. Ej: luz, RF, rayos X.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Ultrasonido e Impedancia Acústica -->
+        <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-200">
+          <div class="font-bold text-accent text-xs mb-1">3. Ultrasonido Terapéutico e Impedancia Acústica (Z)</div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 my-1 font-mono text-center">
+            <div class="bg-white p-2 rounded border border-slate-200 font-bold">Z = ρ · c &nbsp; [Rayls]</div>
+            <div class="bg-white p-2 rounded border border-slate-200 font-bold">1 MHz (profundo) vs 3 MHz (superficial)</div>
+          </div>
+          <p class="text-[11px] text-slate-600 leading-relaxed mt-1">
+            La reflexión en interfases depende de la diferencia de impedancia (ΔZ). El gel hidrosoluble elimina el aire interfacial piel-cabezal evitando la reflexión del 99.9% del haz sónico.
+          </p>
+        </div>
+
+        <!-- Magnetoterapia y Resonancia Magnética -->
+        <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-200">
+          <div class="font-bold text-accent text-xs mb-1">4. Magnetoterapia y Resonancia Magnética (Ecuación de Larmor)</div>
+          <div class="font-mono text-xs font-bold text-slate-800 my-1 bg-white p-2 rounded border border-slate-200 text-center">
+            ω₀ = γ · B₀ &nbsp; (Frecuencia de Precesión de Protones)
+          </div>
+          <p class="text-[11px] text-slate-600 leading-relaxed">
+            La Magnetoterapia (CEMP) utiliza campos pulsados ELF (10-100 Hz) para regeneración osteotendinosa. La RMI usa pulsos de radiofrecuencia sobre protones de hidrógeno en un campo B₀ para ponderaciones T1 (anatómica/grasa) y T2 (edema/líquido).
+          </p>
+        </div>
+      </div>
+
+      <div class="mt-5 pt-3 border-t border-slate-100 flex justify-end">
+        <button onclick="closeFormulasModal()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs rounded-xl transition">
+          Cerrar Vademécum
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- MODAL DE GUÍA DE USO / TUTORIAL                                           -->
+  <!-- ========================================================================= -->
+  <div id="modal-tutorial" class="fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-2xl max-w-2xl w-full p-6 shadow-2xl border border-slate-200 max-h-[90vh] overflow-y-auto custom-scroll">
+      <div class="flex items-center justify-between pb-3 border-b border-slate-200 mb-4">
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-lg bg-accent text-white flex items-center justify-center text-sm font-bold shadow-xs">
+            <i class="fa-solid fa-compass"></i>
+          </div>
+          <div>
+            <h3 class="text-base font-bold text-slate-800">Guía de Uso del Simulador de Ondas</h3>
+            <p class="text-[11px] text-slate-500 font-medium">Orientaciones prácticas para el curso de ingreso a Kinesiología (UCCuyo)</p>
+          </div>
+        </div>
+        <button onclick="closeTutorial()" class="text-slate-400 hover:text-slate-700 text-lg transition">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="space-y-3.5 text-xs text-slate-600 leading-relaxed">
+        <div class="flex items-start gap-3 p-3 rounded-xl bg-slate-50 border border-slate-200">
+          <div class="w-6 h-6 rounded-full bg-accent text-white flex items-center justify-center font-bold text-xs shrink-0 mt-0.5 shadow-xs">1</div>
+          <div>
+            <strong class="text-slate-800 block text-xs mb-0.5">Estructura y Navegación Modular:</strong>
+            El simulador se organiza mediante la barra lateral izquierda en cinco estaciones clínicas y experimentales: <em>1. Parámetros Ondulatorios</em>, <em>2. Mecánicas vs. Vacío</em>, <em>3. Ultrasonido & Ecografía</em>, <em>4. Magneto & Resonancia</em> y <em>5. Casos Clínicos</em>.
+          </div>
+        </div>
+
+        <div class="flex items-start gap-3 p-3 rounded-xl bg-slate-50 border border-slate-200">
+          <div class="w-6 h-6 rounded-full bg-accent text-white flex items-center justify-center font-bold text-xs shrink-0 mt-0.5 shadow-xs">2</div>
+          <div>
+            <strong class="text-slate-800 block text-xs mb-0.5">Módulo 1 • Osciloscopio Ondulatorio y Telemetría:</strong>
+            Modifica la Amplitud (A), la Frecuencia (f) y la Rapidez (v) con los deslizadores interactivos. Disfruta de controles interactivos para <em>Pausar</em> la oscilación, activar <em>Cámara Lenta (0.25x)</em> y visualizar u ocultar los <em>Vectores de velocidad transversal</em>. Observa las partículas discretas rojas del medio que oscilan sin desplazarse y la dinámica de las cotas automáticas de cresta, amplitud y longitud de onda (λ).
+          </div>
+        </div>
+
+        <div class="flex items-start gap-3 p-3 rounded-xl bg-slate-50 border border-slate-200">
+          <div class="w-6 h-6 rounded-full bg-accent text-white flex items-center justify-center font-bold text-xs shrink-0 mt-0.5 shadow-xs">3</div>
+          <div>
+            <strong class="text-slate-800 block text-xs mb-0.5">Módulo 2 • Cámara Hermética de Vacío:</strong>
+            Selecciona el emisor de onda mecánica (ultrasonido/parlante) o electromagnética (láser/radiofrecuencia). Presiona <em>Evacuar Aire</em> para activar la bomba neumática y observar cómo, al descender la densidad molecular (atm), la onda mecánica se atenúa hasta el silencio total por falta de medio elástico, mientras que la onda electromagnética continúa propagándose con 100% de transmisión en el vacío absoluto.
+          </div>
+        </div>
+
+        <div class="flex items-start gap-3 p-3 rounded-xl bg-slate-50 border border-slate-200">
+          <div class="w-6 h-6 rounded-full bg-accent text-white flex items-center justify-center font-bold text-xs shrink-0 mt-0.5 shadow-xs">4</div>
+          <div>
+            <strong class="text-slate-800 block text-xs mb-0.5">Módulo 3 • Estación de Ondas Mecánicas (Kinesiología & Imágenes):</strong>
+            Alterna entre <strong>Ultrasonido Kinésico</strong> (ajusta frecuencia de 1 MHz para tejidos profundos vs 3 MHz para superficiales, régimen continuo térmico vs pulsado a-térmico e intensidad acústica con mapa termográfico en vivo) y <strong>Ecografía Modo-B</strong> (escanea fantomas con quistes anecoicos de refuerzo posterior o calcificaciones hiperecoicas con sombra acústica, modulando la ganancia acústica y analizando la impedancia Z = ρ · c).
+          </div>
+        </div>
+
+        <div class="flex items-start gap-3 p-3 rounded-xl bg-slate-50 border border-slate-200">
+          <div class="w-6 h-6 rounded-full bg-accent text-white flex items-center justify-center font-bold text-xs shrink-0 mt-0.5 shadow-xs">5</div>
+          <div>
+            <strong class="text-slate-800 block text-xs mb-0.5">Módulo 4 • Estación de Ondas Electromagnéticas (Magneto & RMI):</strong>
+            En <strong>Magnetoterapia</strong>, regula la frecuencia ELF (10-100 Hz), la inducción (Gauss) y el régimen para observar las líneas de campo B y la reorientación de iones Ca²⁺ en la membrana celular. En <strong>Resonancia Magnética (RMI)</strong>, experimenta la secuencia cuántica de 4 pasos (Campo B₀, Pulso RF de 90° a frecuencia de Larmor, Relajación T1/T2 con señal FID y reconstrucción tomográfica ponderada T1 o T2).
+          </div>
+        </div>
+
+        <div class="flex items-start gap-3 p-3 rounded-xl bg-slate-50 border border-slate-200">
+          <div class="w-6 h-6 rounded-full bg-accent text-white flex items-center justify-center font-bold text-xs shrink-0 mt-0.5 shadow-xs">6</div>
+          <div>
+            <strong class="text-slate-800 block text-xs mb-0.5">Módulo 5 • Casos Clínicos, Vademécum e Informe:</strong>
+            Resuelve los 4 retos clínicos sobre dosificación ultrasónica, interfases ecográficas, diagnóstico articular por RMI y contraindicaciones de seguridad con marcapasos. Consulta en todo momento el <em>Vademécum</em> en la cabecera para revisar las fórmulas físicas y genera el <em>Informe Académico</em> para imprimir o guardar tu dictamen pedagógico en PDF.
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-5 pt-3 border-t border-slate-100 flex justify-end">
+        <button onclick="closeTutorial()" class="px-5 py-2.5 bg-accent hover:bg-accent-hover text-white font-semibold text-xs rounded-xl shadow-sm transition">
+          Comenzar Laboratorio
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- COMPONENTE TOAST FLOTANTE                                                 -->
+  <!-- ========================================================================= -->
+  <div id="toast" class="fixed bottom-5 right-5 z-50 bg-slate-900 text-white text-xs px-4 py-3 rounded-xl shadow-xl flex items-center gap-2 transform translate-y-20 opacity-0 transition-all duration-300 border border-slate-700">
+    <i class="fa-solid fa-circle-check text-lime-400"></i>
+    <span id="toast-msg">Mensaje informativo</span>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- FOOTER INSTITUCIONAL UCCUYO                                               -->
+  <!-- ========================================================================= -->
+  <footer class="bg-white border-t border-gray-200 mt-8 py-4">
+    <div class="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-gray-500">
+      <div>Universidad Católica de Cuyo | Facultad de Ciencias Médicas</div>
+      <div>Licenciatura en Kinesiología y Fisiatría - Unidad 7</div>
+    </div>
+  </footer>
+
+  <!-- ==================== LÓGICA DE CONTROL Y SIMULADORES ==================== -->
+  <script>
+    /* ===============================================================
+       ESTADO GLOBAL DE LA APLICACIÓN Y SISTEMA DE MAESTRÍA
+       =============================================================== */
+    const appState = {
+      currentTab: 1,
+      masteryScore: 0,
+      completedModules: {
+        1: false,
+        2: false,
+        3: false,
+        4: false,
+        case1: false,
+        case2: false,
+        case3: false,
+        case4: false
+      },
+      // Parámetros Módulo 1 (Onda continua)
+      wave: {
+        A: 1.2,          // Amplitud en metros
+        f: 1.0,          // Frecuencia en Hz
+        v: 4.0,          // Velocidad en m/s
+        paused: false,
+        slowMo: false,
+        showVectors: true,
+        phase: 0
+      },
+      // Parámetros Módulo 2 (Vacío)
+      vacuum: {
+        type: 'mechanical', // 'mechanical' | 'electromagnetic'
+        pressure: 1.0,      // 1.0 a 0.0 (atm)
+        targetPressure: 1.0,
+        particles: []
+      },
+      // Parámetros Módulo 3 (Ultrasonido y Ecografía)
+      mechApp: {
+        mode: 'therapy',    // 'therapy' | 'echo'
+        freq: 1,            // 1 MHz o 3 MHz
+        regime: 'continuous',// 'continuous' | 'pulsed'
+        intensity: 1.2,     // W/cm2
+        target: 'cyst',     // 'cyst' | 'calcification'
+        gain: 50,
+        pulseOffset: 0
+      },
+      // Parámetros Módulo 4 (Magneto y Resonancia)
+      emApp: {
+        mode: 'magneto',    // 'magneto' | 'mri'
+        magFreq: 50,        // Hz
+        magGauss: 50,       // Gauss
+        magRegime: 'pulsed',// 'pulsed' | 'continuous'
+        mriStep: 1,         // 1: B0, 2: RF 90, 3: Relaxation, 4: Image
+        mriWeight: 'T1'     // 'T1' | 'T2'
+      }
+    };
+
+    document.addEventListener("DOMContentLoaded", () => {
+      initModule1Canvas();
+      initModule2Canvas();
+      initModule3TherapyCanvas();
+      initModule3EchoCanvases();
+      initModule4MagnetoCanvas();
+      initModule4MRICanvas();
+      
+      // Bucle maestro de renderizado
+      requestAnimationFrame(mainRenderLoop);
+    });
+
+    /* ===============================================================
+       SISTEMA DE PESTAÑAS FLUIDAS
+       =============================================================== */
+    function switchTab(tabIndex) {
+      appState.currentTab = tabIndex;
+
+      // Actualizar botones de navegación lateral
+      for (let i = 1; i <= 5; i++) {
+        const targetBtn = document.getElementById(`tab-btn-${i}`);
+        const content = document.getElementById(`module-${i}`);
+        if (!targetBtn || !content) continue;
+
+        if (i === tabIndex) {
+          targetBtn.className = "bg-accent text-white flex-1 lg:flex-none text-left py-2.5 px-4 rounded-xl text-sm font-semibold transition shadow-sm flex items-center gap-2";
+          content.classList.remove("hidden");
+        } else {
+          targetBtn.className = "text-gray-700 hover:bg-gray-100 flex-1 lg:flex-none text-left py-2.5 px-4 rounded-xl text-sm font-medium transition flex items-center gap-2";
+          content.classList.add("hidden");
+        }
+      }
+
+      // Ajustar lienzos según el módulo seleccionado
+      if (tabIndex === 1 && canvas1) resizeCanvasToDisplaySize(canvas1);
+      if (tabIndex === 2 && canvas2) resizeCanvasToDisplaySize(canvas2);
+      if (tabIndex === 3) {
+        if (canvasTherapy) resizeCanvasToDisplaySize(canvasTherapy);
+        if (canvasEchoPhys) resizeCanvasToDisplaySize(canvasEchoPhys);
+        if (canvasEchoBMode) resizeCanvasToDisplaySize(canvasEchoBMode);
+      }
+      if (tabIndex === 4) {
+        if (canvasMagneto) resizeCanvasToDisplaySize(canvasMagneto);
+        if (canvasMRI) resizeCanvasToDisplaySize(canvasMRI);
+      }
+    }
+
+    // Funciones de modales institucionales y toasts
+    function openFormulasModal() {
+      document.getElementById('modal-formulas').classList.remove('hidden');
+    }
+    function closeFormulasModal() {
+      document.getElementById('modal-formulas').classList.add('hidden');
+    }
+    function openTutorial() {
+      document.getElementById('modal-tutorial').classList.remove('hidden');
+    }
+    function closeTutorial() {
+      document.getElementById('modal-tutorial').classList.add('hidden');
+    }
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      const toastMsg = document.getElementById('toast-msg');
+      if (!toast || !toastMsg) return;
+      toastMsg.textContent = message;
+      toast.classList.remove('translate-y-20', 'opacity-0');
+      toast.classList.add('translate-y-0', 'opacity-100');
+      setTimeout(() => {
+        toast.classList.add('translate-y-20', 'opacity-0');
+        toast.classList.remove('translate-y-0', 'opacity-100');
+      }, 3000);
+    }
+
+    /* ===============================================================
+       SISTEMA DE PROGRESO Y PUNTUACIÓN DE MAESTRÍA
+       =============================================================== */
+    function updateMasteryDisplay() {
+      let completedCount = 0;
+      const keys = Object.keys(appState.completedModules);
+      keys.forEach(k => {
+        if (appState.completedModules[k]) completedCount++;
+      });
+
+      // Actualizar estado cualitativo en modal si está abierto
+      const modalComp = document.getElementById("modalCompetencyText");
+      if (modalComp) {
+        if (completedCount >= keys.length) modalComp.innerText = "Competencias Completadas Satisfactoriamente";
+        else if (completedCount >= 4) modalComp.innerText = "Nivel Intermedio - Avanzado";
+        else modalComp.innerText = "En Desarrollo Formativo";
+      }
+    }
+
+    function rewardModuleProgress(moduleNum) {
+      showToast(`¡Módulo ${moduleNum} completado!`);
+      if (!appState.completedModules[moduleNum]) {
+        appState.completedModules[moduleNum] = true;
+        appState.masteryScore += 50;
+        updateMasteryDisplay();
+      }
+    }
+
+    /* ===============================================================
+       MÓDULO 1: LABORATORIO DE PARÁMETROS ONDULATORIOS
+       =============================================================== */
+    let canvas1, ctx1;
+
+    function initModule1Canvas() {
+      canvas1 = document.getElementById("waveCanvas");
+      ctx1 = canvas1.getContext("2d");
+      resizeCanvasToDisplaySize(canvas1);
+      window.addEventListener("resize", () => resizeCanvasToDisplaySize(canvas1));
+    }
+
+    function resizeCanvasToDisplaySize(canvas) {
+      const rect = canvas.getBoundingClientRect();
+      const dpr = window.devicePixelRatio || 1;
+      canvas.width = rect.width * dpr;
+      canvas.height = rect.height * dpr;
+    }
+
+    function updateWaveParams() {
+      appState.wave.A = parseFloat(document.getElementById("sliderA").value);
+      appState.wave.f = parseFloat(document.getElementById("sliderF").value);
+      appState.wave.v = parseFloat(document.getElementById("sliderV").value);
+
+      document.getElementById("valA").innerText = appState.wave.A.toFixed(1);
+      document.getElementById("valF").innerText = appState.wave.f.toFixed(1);
+      document.getElementById("valV").innerText = appState.wave.v.toFixed(1);
+
+      // Cálculos físicos: T = 1/f ; λ = v / f
+      const T = 1 / appState.wave.f;
+      const lambda = appState.wave.v / appState.wave.f;
+
+      document.getElementById("dispFreq").innerText = appState.wave.f.toFixed(2);
+      document.getElementById("dispPeriod").innerText = T.toFixed(2);
+      document.getElementById("dispLambda").innerText = lambda.toFixed(2);
+      document.getElementById("dispVel").innerText = appState.wave.v.toFixed(2);
+
+      // Explicación dinámica reactiva
+      const exp = document.getElementById("dynamicPhysicExplanation");
+      if (appState.wave.f > 2.0) {
+        exp.innerHTML = `<span class="text-cyan-300 font-bold">Alta frecuencia (${appState.wave.f.toFixed(1)} Hz):</span> Las crestas se encuentran muy próximas entre sí, resultando en una longitud de onda corta (<span class="text-violet-300 font-mono font-bold">${lambda.toFixed(2)} m</span>). Modelo idéntico a las ondas de alta frecuencia en ultrasonidos superficiales.`;
+      } else if (appState.wave.f < 0.6) {
+        exp.innerHTML = `<span class="text-cyan-300 font-bold">Baja frecuencia (${appState.wave.f.toFixed(1)} Hz):</span> El período es prolongado (<span class="text-cyan-300 font-mono font-bold">${T.toFixed(2)} s</span>) y la longitud de onda se dilata (<span class="text-violet-300 font-mono font-bold">${lambda.toFixed(2)} m</span>), análogo al mayor alcance de penetración tisular.`;
+      } else {
+        exp.innerHTML = `Relación de fase estable: Con rapidez constante <span class="text-emerald-300 font-mono font-bold">v = ${appState.wave.v.toFixed(1)} m/s</span>, el producto $\\lambda \\cdot f$ reproduce de forma exacta la velocidad del medio elástico.`;
+      }
+    }
+
+    function toggleWavePause() {
+      appState.wave.paused = !appState.wave.paused;
+      const icon = document.getElementById("iconPause");
+      const text = document.getElementById("textPause");
+      if (appState.wave.paused) {
+        icon.className = "fa-solid fa-play w-4 h-4";
+        text.innerText = "Reanudar";
+      } else {
+        icon.className = "fa-solid fa-pause w-4 h-4";
+        text.innerText = "Pausar";
+      }
+      }
+
+    function toggleSlowMo() {
+      appState.wave.slowMo = !appState.wave.slowMo;
+      document.getElementById("textSlowMo").innerText = appState.wave.slowMo ? "Cámara Lenta: On (0.25x)" : "Cámara Lenta: Off";
+    }
+
+    function toggleVectors() {
+      appState.wave.showVectors = !appState.wave.showVectors;
+      document.getElementById("textVectors").innerText = appState.wave.showVectors ? "Vectores: On" : "Vectores: Off";
+    }
+
+    function renderModule1(dt) {
+      if (!ctx1) return;
+      const w = canvas1.width;
+      const h = canvas1.height;
+      const centerY = h / 2;
+
+      ctx1.clearRect(0, 0, w, h);
+
+      // Fondo oscuro científico con degradado sutil
+      const bgGrad = ctx1.createLinearGradient(0, 0, 0, h);
+      bgGrad.addColorStop(0, "#0b1329");
+      bgGrad.addColorStop(1, "#070c1a");
+      ctx1.fillStyle = bgGrad;
+      ctx1.fillRect(0, 0, w, h);
+
+      // Rejilla de coordenadas tipo osciloscopio de precisión
+      ctx1.strokeStyle = "rgba(30, 41, 59, 0.7)";
+      ctx1.lineWidth = 1;
+      const gridStep = Math.max(35, 45 * (w / 800));
+      for (let x = 0; x < w; x += gridStep) {
+        ctx1.beginPath();
+        ctx1.moveTo(x, 0);
+        ctx1.lineTo(x, h);
+        ctx1.stroke();
+      }
+      for (let y = 0; y < h; y += gridStep) {
+        ctx1.beginPath();
+        ctx1.moveTo(0, y);
+        ctx1.lineTo(w, y);
+        ctx1.stroke();
+      }
+
+      // Línea de equilibrio de referencia (y = 0)
+      ctx1.strokeStyle = "rgba(148, 163, 184, 0.35)";
+      ctx1.setLineDash([6, 6]);
+      ctx1.beginPath();
+      ctx1.moveTo(0, centerY);
+      ctx1.lineTo(w, centerY);
+      ctx1.stroke();
+      ctx1.setLineDash([]);
+
+      // Factores de escala físicos a píxeles
+      const lambda = appState.wave.v / appState.wave.f;
+      const pixelsPerMeterX = w / 8;
+      const pixelsPerMeterY = h / 7;
+
+      const lambdaPx = lambda * pixelsPerMeterX;
+      const ampPx = appState.wave.A * pixelsPerMeterY;
+      const k = (2 * Math.PI) / lambdaPx; // número de onda espacial
+      const omega = 2 * Math.PI * appState.wave.f;
+
+      // Actualizar fase
+      if (!appState.wave.paused) {
+        const speedMultiplier = appState.wave.slowMo ? 0.25 : 1.0;
+        appState.wave.phase += omega * (dt / 1000) * speedMultiplier;
+      }
+
+      // Relleno con brillo bajo y sobre la curva
+      const fillGrad = ctx1.createLinearGradient(0, centerY - ampPx, 0, centerY + ampPx);
+      fillGrad.addColorStop(0, "rgba(132, 204, 22, 0.22)");   // Verde lima con brillo
+      fillGrad.addColorStop(0.5, "rgba(132, 204, 22, 0.02)");
+      fillGrad.addColorStop(1, "rgba(132, 204, 22, 0.18)");
+      
+      ctx1.beginPath();
+      ctx1.moveTo(0, centerY);
+      for (let px = 0; px <= w; px += 2) {
+        const y = centerY - ampPx * Math.sin(k * px - appState.wave.phase);
+        ctx1.lineTo(px, y);
+      }
+      ctx1.lineTo(w, centerY);
+      ctx1.closePath();
+      ctx1.fillStyle = fillGrad;
+      ctx1.fill();
+
+      // Curva sinusoidal continua con resplandor (Glow)
+      ctx1.save();
+      ctx1.shadowColor = "rgba(163, 230, 53, 0.6)";
+      ctx1.shadowBlur = 12;
+      ctx1.beginPath();
+      ctx1.lineWidth = 3.5;
+      ctx1.strokeStyle = "#a3e635"; // Verde lima institucional de alta luminosidad
+      for (let px = 0; px <= w; px += 2) {
+        const y = centerY - ampPx * Math.sin(k * px - appState.wave.phase);
+        if (px === 0) ctx1.moveTo(px, y);
+        else ctx1.lineTo(px, y);
+      }
+      ctx1.stroke();
+      ctx1.restore();
+
+      // Partículas discretas del medio elástico
+      const numParticles = 20;
+      for (let i = 0; i <= numParticles; i++) {
+        const px = (w / numParticles) * i;
+        const py = centerY - ampPx * Math.sin(k * px - appState.wave.phase);
+
+        // Guía vertical de oscilación de la partícula
+        ctx1.strokeStyle = "rgba(244, 63, 94, 0.18)";
+        ctx1.lineWidth = 1;
+        ctx1.beginPath();
+        ctx1.moveTo(px, centerY - ampPx);
+        ctx1.lineTo(px, centerY + ampPx);
+        ctx1.stroke();
+
+        // Partícula (Rojo rubí con anillo brillante)
+        ctx1.save();
+        ctx1.shadowColor = "rgba(244, 63, 94, 0.8)";
+        ctx1.shadowBlur = 8;
+        ctx1.fillStyle = "#f43f5e";
+        ctx1.beginPath();
+        ctx1.arc(px, py, 5.5, 0, Math.PI * 2);
+        ctx1.fill();
+        ctx1.strokeStyle = "#ffffff";
+        ctx1.lineWidth = 1.5;
+        ctx1.stroke();
+        ctx1.restore();
+
+        // Vector de velocidad transversal de la partícula (vy)
+        if (appState.wave.showVectors) {
+          const vy = -ampPx * omega * Math.cos(k * px - appState.wave.phase) * 0.05;
+          ctx1.strokeStyle = "#fb7185";
+          ctx1.lineWidth = 2;
+          ctx1.beginPath();
+          ctx1.moveTo(px, py);
+          ctx1.lineTo(px, py + vy);
+          ctx1.stroke();
+        }
+      }
+
+      // Cotas y Marcadores de Cresta, Valle, Amplitud y Longitud de Onda
+      const firstPeakX = ((Math.PI / 2 + appState.wave.phase) / k) % lambdaPx;
+      const peak1X = firstPeakX >= 0 ? firstPeakX : firstPeakX + lambdaPx;
+      const peak2X = peak1X + lambdaPx;
+
+      if (peak1X >= 0 && peak1X < w) {
+        const peakY = centerY - ampPx;
+        
+        // Píldora de CRESTA
+        ctx1.save();
+        ctx1.fillStyle = "rgba(15, 23, 42, 0.85)";
+        ctx1.strokeStyle = "#a3e635";
+        ctx1.lineWidth = 1.5;
+        const tagW = 76, tagH = 22, tagX = peak1X - tagW / 2, tagY = peakY - 32;
+        ctx1.beginPath();
+        ctx1.roundRect ? ctx1.roundRect(tagX, tagY, tagW, tagH, 6) : ctx1.rect(tagX, tagY, tagW, tagH);
+        ctx1.fill();
+        ctx1.stroke();
+
+        ctx1.fillStyle = "#bef264";
+        ctx1.font = "bold 11px Outfit, sans-serif";
+        ctx1.textAlign = "center";
+        ctx1.textBaseline = "middle";
+        ctx1.fillText("CRESTA", peak1X, tagY + tagH / 2);
+
+        // Marcador luminoso en el punto exacto de cresta
+        ctx1.fillStyle = "#ffffff";
+        ctx1.beginPath();
+        ctx1.arc(peak1X, peakY, 4, 0, Math.PI * 2);
+        ctx1.fill();
+        ctx1.restore();
+
+        // Cota de Amplitud (Línea vertical con diseño técnico)
+        ctx1.save();
+        ctx1.strokeStyle = "#38bdf8"; // Celeste cian de alto contraste
+        ctx1.lineWidth = 2;
+        ctx1.beginPath();
+        ctx1.moveTo(peak1X, centerY);
+        ctx1.lineTo(peak1X, peakY);
+        ctx1.stroke();
+
+        // Topes de la cota
+        ctx1.beginPath();
+        ctx1.moveTo(peak1X - 6, centerY);
+        ctx1.lineTo(peak1X + 6, centerY);
+        ctx1.moveTo(peak1X - 6, peakY);
+        ctx1.lineTo(peak1X + 6, peakY);
+        ctx1.stroke();
+
+        // Etiqueta de Amplitud en fondo oscuro
+        const ampLabel = `A = ${appState.wave.A.toFixed(1)} m`;
+        ctx1.font = "bold 11px JetBrains Mono, monospace";
+        ctx1.fillStyle = "rgba(15, 23, 42, 0.85)";
+        ctx1.fillRect(peak1X + 8, centerY - ampPx / 2 - 10, 85, 20);
+        ctx1.strokeStyle = "rgba(56, 189, 248, 0.4)";
+        ctx1.strokeRect(peak1X + 8, centerY - ampPx / 2 - 10, 85, 20);
+        ctx1.fillStyle = "#38bdf8";
+        ctx1.textAlign = "left";
+        ctx1.textBaseline = "middle";
+        ctx1.fillText(ampLabel, peak1X + 14, centerY - ampPx / 2);
+        ctx1.restore();
+      }
+
+      // Cota de Longitud de Onda (λ) entre crestas consecutivas
+      if (peak1X < w && peak2X < w) {
+        const caliperY = Math.max(30, 42 * (h / 400));
+        ctx1.save();
+        ctx1.strokeStyle = "#f59e0b"; // Ámbar dorado elegante
+        ctx1.lineWidth = 2;
+        ctx1.beginPath();
+        ctx1.moveTo(peak1X, caliperY);
+        ctx1.lineTo(peak2X, caliperY);
+        ctx1.stroke();
+
+        // Marcadores de tope
+        ctx1.beginPath();
+        ctx1.moveTo(peak1X, caliperY - 7);
+        ctx1.lineTo(peak1X, caliperY + 7);
+        ctx1.moveTo(peak2X, caliperY - 7);
+        ctx1.lineTo(peak2X, caliperY + 7);
+        ctx1.stroke();
+
+        // Caja flotante de cota λ
+        const midX = (peak1X + peak2X) / 2;
+        const lambdaLabel = `λ = ${lambda.toFixed(2)} m`;
+        ctx1.font = "bold 12px JetBrains Mono, monospace";
+        const textWidth = ctx1.measureText(lambdaLabel).width;
+        
+        ctx1.fillStyle = "rgba(15, 23, 42, 0.9)";
+        ctx1.beginPath();
+        const pillW = textWidth + 24, pillH = 24;
+        ctx1.roundRect ? ctx1.roundRect(midX - pillW / 2, caliperY - pillH / 2, pillW, pillH, 6) : ctx1.rect(midX - pillW / 2, caliperY - pillH / 2, pillW, pillH);
+        ctx1.fill();
+        ctx1.strokeStyle = "#f59e0b";
+        ctx1.stroke();
+
+        ctx1.fillStyle = "#fbbf24";
+        ctx1.textAlign = "center";
+        ctx1.textBaseline = "middle";
+        ctx1.fillText(lambdaLabel, midX, caliperY);
+        ctx1.restore();
+      }
+
+      // Vector de propagación de la onda (v) en esquina inferior derecha
+      if (appState.wave.showVectors) {
+        ctx1.save();
+        ctx1.fillStyle = "rgba(15, 23, 42, 0.85)";
+        ctx1.strokeStyle = "rgba(163, 230, 53, 0.4)";
+        ctx1.lineWidth = 1;
+        const vText = `Propagación: v = ${appState.wave.v.toFixed(1)} m/s ➔`;
+        ctx1.font = "600 11px Outfit, sans-serif";
+        const vW = ctx1.measureText(vText).width + 20;
+        ctx1.fillRect(w - vW - 14, h - 34, vW, 24);
+        ctx1.strokeRect(w - vW - 14, h - 34, vW, 24);
+        ctx1.fillStyle = "#a3e635";
+        ctx1.textAlign = "left";
+        ctx1.textBaseline = "middle";
+        ctx1.fillText(vText, w - vW - 4, h - 22);
+        ctx1.restore();
+      }
+    }
+
+    /* ===============================================================
+       MÓDULO 2: CAMPANA DE VACÍO Y CLASIFICACIÓN DINÁMICA
+       =============================================================== */
+    let canvas2, ctx2;
+
+    function initModule2Canvas() {
+      canvas2 = document.getElementById("vacuumCanvas");
+      ctx2 = canvas2.getContext("2d");
+      resizeCanvasToDisplaySize(canvas2);
+      window.addEventListener("resize", () => resizeCanvasToDisplaySize(canvas2));
+
+      // Crear partículas iniciales de gas/aire dentro de la campana
+      appState.vacuum.particles = [];
+      const totalParticles = 140;
+      for (let i = 0; i < totalParticles; i++) {
+        appState.vacuum.particles.push({
+          x: Math.random(),
+          y: Math.random(),
+          vx: (Math.random() - 0.5) * 0.003,
+          vy: (Math.random() - 0.5) * 0.003,
+          baseX: 0
+        });
+      }
+    }
+
+    function setWaveType(type) {
+      appState.vacuum.type = type;
+      const btnMech = document.getElementById("btnWaveMech");
+      const btnEM = document.getElementById("btnWaveEM");
+
+      if (type === 'mechanical') {
+        btnMech.className = "p-3 rounded-xl border-2 text-left transition flex items-start gap-3 bg-cyan-50/80 border-cyan-500 shadow-sm";
+        btnEM.className = "p-3 rounded-xl border-2 text-left transition flex items-start gap-3 bg-white border-slate-200 hover:border-violet-300";
+      } else {
+        btnEM.className = "p-3 rounded-xl border-2 text-left transition flex items-start gap-3 bg-violet-50/80 border-violet-500 shadow-sm";
+        btnMech.className = "p-3 rounded-xl border-2 text-left transition flex items-start gap-3 bg-white border-slate-200 hover:border-cyan-300";
+      }
+      updateVacuumUI();
+    }
+
+    function evacuateChamber() {
+      appState.vacuum.targetPressure = 0.0;
+    }
+
+    function restoreChamber() {
+      appState.vacuum.targetPressure = 1.0;
+    }
+
+    function updateVacuumUI() {
+      const p = appState.vacuum.pressure;
+      const isMech = appState.vacuum.type === 'mechanical';
+      const badge = document.getElementById("vacuumStateBadge");
+      const pVal = document.getElementById("pressureValue");
+      const overlayTitle = document.getElementById("waveStatusTitle");
+      const overlayDesc = document.getElementById("waveStatusDesc");
+      const molText = document.getElementById("moleculeCountText");
+      const attText = document.getElementById("attenuationText");
+
+      pVal.innerText = `${Math.round(p * 100)}% (${p.toFixed(2)} atm)`;
+      molText.innerText = `${Math.round(p * 120)} partículas/vol`;
+
+      if (p > 0.7) {
+        badge.className = "text-xs px-2.5 py-0.5 rounded-full font-semibold bg-emerald-100 text-emerald-800 border border-emerald-300";
+        badge.innerText = `Presión Normal: ${p.toFixed(2)} atm (Con Medio Material)`;
+      } else if (p > 0.15) {
+        badge.className = "text-xs px-2.5 py-0.5 rounded-full font-semibold bg-amber-100 text-amber-800 border border-amber-300";
+        badge.innerText = `Presión Reducida: ${p.toFixed(2)} atm (Evacuando)`;
+      } else {
+        badge.className = "text-xs px-2.5 py-0.5 rounded-full font-semibold bg-rose-100 text-rose-800 border border-rose-300";
+        badge.innerText = "Vacío Casi Absoluto: ~0.00 atm";
+      }
+
+      if (isMech) {
+        const atten = Math.round((1 - p) * 100);
+        attText.innerText = `${atten}% (${p < 0.08 ? 'Silencio Total' : 'Atenuado'})`;
+
+        if (p < 0.1) {
+          overlayTitle.innerText = "Extinción Total de la Onda";
+          overlayTitle.className = "font-bold text-rose-400";
+          overlayDesc.innerText = "Al no existir medio elástico material (átomos en colisión), la onda mecánica no puede propagarse hacia el receptor.";
+        } else {
+          overlayTitle.innerText = "Onda Mecánica Propagando";
+          overlayTitle.className = "font-bold text-cyan-300";
+          overlayDesc.innerText = "Las partículas de gas oscilan transmitiendo compresión y rarefacción acústica.";
+        }
+      } else {
+        attText.innerText = "0% (Inmune al vacío)";
+        overlayTitle.innerText = "Onda EM Viaja en el Vacío";
+        overlayTitle.className = "font-bold text-violet-300";
+        overlayDesc.innerText = "Los campos electromagnéticos se autosostienen y viajan a la velocidad de la luz (c) sin requerir partículas.";
+      }
+    }
+
+    function renderModule2(dt) {
+      if (!ctx2) return;
+      const w = canvas2.width;
+      const h = canvas2.height;
+
+      // Suavizado del cambio de presión (bomba neumática)
+      appState.vacuum.pressure += (appState.vacuum.targetPressure - appState.vacuum.pressure) * 0.04;
+      updateVacuumUI();
+
+      ctx2.clearRect(0, 0, w, h);
+
+      // Dibujar Campana de Vidrio Hermética
+      const bellX = w * 0.15;
+      const bellY = h * 0.12;
+      const bellW = w * 0.7;
+      const bellH = h * 0.75;
+      const radius = 30;
+
+      // Base metálica de la campana
+      ctx2.fillStyle = "#334155";
+      ctx2.fillRect(bellX - 20, bellY + bellH, bellW + 40, 20);
+
+      // Interior de la campana
+      ctx2.fillStyle = "#020617";
+      ctx2.beginPath();
+      ctx2.roundRect(bellX, bellY, bellW, bellH, [radius, radius, 0, 0]);
+      ctx2.fill();
+
+      // Borde de cristal y reflejos
+      ctx2.strokeStyle = "rgba(148, 163, 184, 0.4)";
+      ctx2.lineWidth = 3;
+      ctx2.stroke();
+
+      // Emisor a la izquierda dentro de la campana
+      const emitterX = bellX + 35;
+      const emitterY = bellY + bellH / 2;
+
+      // Receptor al extremo derecho
+      const receiverX = bellX + bellW - 40;
+      const receiverY = emitterY;
+
+      // Dibujar soporte emisor
+      ctx2.fillStyle = "#64748b";
+      ctx2.fillRect(emitterX - 15, emitterY - 30, 20, 60);
+
+      // Dibujar receptor
+      ctx2.fillStyle = "#475569";
+      ctx2.fillRect(receiverX, receiverY - 30, 20, 60);
+
+      const p = appState.vacuum.pressure;
+      const time = performance.now() * 0.003;
+
+      if (appState.vacuum.type === 'mechanical') {
+        // Fuente acústica: cono vibrante
+        const vib = Math.sin(time * 8) * (p > 0.05 ? 4 : 0);
+        ctx2.fillStyle = "#06b6d4";
+        ctx2.beginPath();
+        ctx2.moveTo(emitterX + 5 + vib, emitterY - 20);
+        ctx2.lineTo(emitterX + 25 + vib, emitterY);
+        ctx2.lineTo(emitterX + 5 + vib, emitterY + 20);
+        ctx2.closePath();
+        ctx2.fill();
+
+        // Renderizar partículas del aire (densidad proporcional a p)
+        const visibleCount = Math.floor(appState.vacuum.particles.length * p);
+        ctx2.fillStyle = "rgba(226, 232, 240, 0.85)";
+
+        for (let i = 0; i < visibleCount; i++) {
+          const pt = appState.vacuum.particles[i];
+          // Movimiento browniano básico
+          pt.x += pt.vx;
+          pt.y += pt.vy;
+          if (pt.x < 0) pt.x = 1;
+          if (pt.x > 1) pt.x = 0;
+          if (pt.y < 0) pt.y = 1;
+          if (pt.y > 1) pt.y = 0;
+
+          // Modulación acústica longitudinal
+          const realX = bellX + 35 + pt.x * (bellW - 75);
+          const realY = bellY + 15 + pt.y * (bellH - 30);
+          const soundDisplacement = Math.sin((realX * 0.03) - time * 6) * 8 * p;
+
+          ctx2.beginPath();
+          ctx2.arc(realX + soundDisplacement, realY, 2.5, 0, Math.PI * 2);
+          ctx2.fill();
+        }
+
+        // Frentes de onda acústicos atenuándose con el vacío
+        if (p > 0.05) {
+          const numRings = 5;
+          ctx2.lineWidth = 2.5;
+          for (let r = 0; r < numRings; r++) {
+            const progress = ((time * 0.5 + r / numRings) % 1);
+            const ringX = emitterX + 25 + progress * (bellW - 80);
+            ctx2.strokeStyle = `rgba(6, 182, 212, ${(1 - progress) * p * 0.8})`;
+            ctx2.beginPath();
+            ctx2.arc(emitterX + 25, emitterY, progress * (bellW - 80), -Math.PI / 4, Math.PI / 4);
+            ctx2.stroke();
+          }
+        }
+
+      } else {
+        // Fuente Electromagnética: Diodo láser / Antena RF
+        ctx2.fillStyle = "#8b5cf6";
+        ctx2.beginPath();
+        ctx2.arc(emitterX + 10, emitterY, 10, 0, Math.PI * 2);
+        ctx2.fill();
+
+        // Ondas EM: Campos E (Cian) y B (Violeta) sinusoidales perpendiculares
+        const startX = emitterX + 15;
+        const endX = receiverX - 5;
+        const emAmp = 28;
+        const emFreq = 0.04;
+
+        // Campo Eléctrico E (vertical)
+        ctx2.strokeStyle = "#38bdf8";
+        ctx2.lineWidth = 3;
+        ctx2.beginPath();
+        for (let x = startX; x <= endX; x += 2) {
+          const y = emitterY - emAmp * Math.sin(emFreq * (x - startX) - time * 6);
+          if (x === startX) ctx2.moveTo(x, y);
+          else ctx2.lineTo(x, y);
+        }
+        ctx2.stroke();
+
+        // Campo Magnético B (en perspectiva/inclinado)
+        ctx2.strokeStyle = "#c084fc";
+        ctx2.lineWidth = 2;
+        ctx2.beginPath();
+        for (let x = startX; x <= endX; x += 2) {
+          const y = emitterY - (emAmp * 0.6) * Math.cos(emFreq * (x - startX) - time * 6);
+          if (x === startX) ctx2.moveTo(x, y);
+          else ctx2.lineTo(x, y);
+        }
+        ctx2.stroke();
+
+        // Indicador de receptor activo
+        ctx2.fillStyle = "#10b981";
+        ctx2.beginPath();
+        ctx2.arc(receiverX + 10, receiverY, 6 + Math.sin(time * 10) * 2, 0, Math.PI * 2);
+        ctx2.fill();
+      }
+
+      // Válvula de vacío inferior con tubo
+      ctx2.fillStyle = "#64748b";
+      ctx2.fillRect(w / 2 - 10, bellY + bellH, 20, 25);
+      if (appState.vacuum.targetPressure === 0) {
+        ctx2.strokeStyle = "#38bdf8";
+        ctx2.setLineDash([4, 4]);
+        ctx2.strokeRect(w / 2 - 8, bellY + bellH + 5, 16, 20);
+        ctx2.setLineDash([]);
+      }
+    }
+
+    /* ===============================================================
+       MÓDULO 3: ESTACIÓN DE ONDAS MECÁNICAS (KINESIOLOGÍA & ECOGRAFÍA)
+       =============================================================== */
+    let canvasTherapy, ctxTherapy;
+    let canvasEchoPhys, ctxEchoPhys;
+    let canvasEchoBMode, ctxEchoBMode;
+
+    function initModule3TherapyCanvas() {
+      canvasTherapy = document.getElementById("therapyCanvas");
+      ctxTherapy = canvasTherapy.getContext("2d");
+      resizeCanvasToDisplaySize(canvasTherapy);
+    }
+
+    function initModule3EchoCanvases() {
+      canvasEchoPhys = document.getElementById("echoPhysCanvas");
+      ctxEchoPhys = canvasEchoPhys.getContext("2d");
+      resizeCanvasToDisplaySize(canvasEchoPhys);
+
+      canvasEchoBMode = document.getElementById("echoBModeCanvas");
+      ctxEchoBMode = canvasEchoBMode.getContext("2d");
+      resizeCanvasToDisplaySize(canvasEchoBMode);
+    }
+
+    function setMechApp(app) {
+      appState.mechApp.mode = app;
+      const btnTherapy = document.getElementById("btnAppTherapy");
+      const btnEcho = document.getElementById("btnAppEcho");
+      const viewTherapy = document.getElementById("view-therapy");
+      const viewEcho = document.getElementById("view-echo");
+
+      if (app === 'therapy') {
+        btnTherapy.className = "px-3.5 py-1.5 rounded-lg text-xs font-bold transition bg-white text-emerald-700 shadow-sm";
+        btnEcho.className = "px-3.5 py-1.5 rounded-lg text-xs font-bold transition text-slate-600 hover:text-slate-900";
+        viewTherapy.classList.remove("hidden");
+        viewEcho.classList.add("hidden");
+        resizeCanvasToDisplaySize(canvasTherapy);
+      } else {
+        btnEcho.className = "px-3.5 py-1.5 rounded-lg text-xs font-bold transition bg-white text-cyan-700 shadow-sm";
+        btnTherapy.className = "px-3.5 py-1.5 rounded-lg text-xs font-bold transition text-slate-600 hover:text-slate-900";
+        viewEcho.classList.remove("hidden");
+        viewTherapy.classList.add("hidden");
+        resizeCanvasToDisplaySize(canvasEchoPhys);
+        resizeCanvasToDisplaySize(canvasEchoBMode);
+      }
+      }
+
+    function setTherapyFreq(freq) {
+      appState.mechApp.freq = freq;
+      const b1 = document.getElementById("btnFreq1");
+      const b3 = document.getElementById("btnFreq3");
+      const badge = document.getElementById("therapyDepthBadge");
+
+      if (freq === 1) {
+        b1.className = "p-2.5 rounded-xl border-2 text-center text-xs font-bold transition border-emerald-500 bg-emerald-50 text-emerald-800";
+        b3.className = "p-2.5 rounded-xl border-2 text-center text-xs font-bold transition border-slate-200 hover:border-slate-300 text-slate-700";
+        badge.innerText = "Profundidad eficaz: ~4-5 cm (1 MHz - Foco Profundo)";
+      } else {
+        b3.className = "p-2.5 rounded-xl border-2 text-center text-xs font-bold transition border-emerald-500 bg-emerald-50 text-emerald-800";
+        b1.className = "p-2.5 rounded-xl border-2 text-center text-xs font-bold transition border-slate-200 hover:border-slate-300 text-slate-700";
+        badge.innerText = "Profundidad eficaz: ~1-2 cm (3 MHz - Absorción Superficial)";
+      }
+    }
+
+    function setTherapyMode(mode) {
+      appState.mechApp.regime = mode;
+      const bc = document.getElementById("btnModeCont");
+      const bp = document.getElementById("btnModePulsed");
+      const desc = document.getElementById("therapyEffectDesc");
+
+      if (mode === 'continuous') {
+        bc.className = "p-2.5 rounded-xl border-2 text-center text-xs font-bold transition border-amber-500 bg-amber-50 text-amber-900";
+        bp.className = "p-2.5 rounded-xl border-2 text-center text-xs font-bold transition border-slate-200 hover:border-slate-300 text-slate-700";
+        desc.innerText = "Vasodilatación y relajación miofascial profunda (Efecto Térmico)";
+      } else {
+        bp.className = "p-2.5 rounded-xl border-2 text-center text-xs font-bold transition border-cyan-500 bg-cyan-50 text-cyan-900";
+        bc.className = "p-2.5 rounded-xl border-2 text-center text-xs font-bold transition border-slate-200 hover:border-slate-300 text-slate-700";
+        desc.innerText = "Microcavitación celular y drenaje antiinflamatorio sin calor excesivo";
+      }
+    }
+
+    function updateTherapyIntensity() {
+      appState.mechApp.intensity = parseFloat(document.getElementById("sliderIntensity").value);
+      document.getElementById("valIntensity").innerText = appState.mechApp.intensity.toFixed(1);
+    }
+
+    function renderModule3Therapy(dt) {
+      if (!ctxTherapy) return;
+      const w = canvasTherapy.width;
+      const h = canvasTherapy.height;
+      const time = performance.now() * 0.003;
+
+      ctxTherapy.clearRect(0, 0, w, h);
+
+      // Estratificación tisular vertical
+      // Capa 1: Gel conductor (0 a 10%)
+      // Capa 2: Piel/Epidermis (10% a 22%)
+      // Capa 3: Tejido Adiposo Subcutáneo (22% a 45%)
+      // Capa 4: Músculo Esquelético (45% a 85%)
+      // Capa 5: Periostio y Hueso Cortical (85% a 100%)
+
+      const yGel = h * 0.10;
+      const ySkin = h * 0.22;
+      const yFat = h * 0.45;
+      const yMusc = h * 0.85;
+
+      // Piel
+      ctxTherapy.fillStyle = "#ffedd5";
+      ctxTherapy.fillRect(0, yGel, w, ySkin - yGel);
+
+      // Grasa
+      ctxTherapy.fillStyle = "#fef08a";
+      ctxTherapy.fillRect(0, ySkin, w, yFat - ySkin);
+
+      // Músculo
+      ctxTherapy.fillStyle = "#fecaca";
+      ctxTherapy.fillRect(0, yFat, w, yMusc - yFat);
+
+      // Hueso
+      ctxTherapy.fillStyle = "#e2e8f0";
+      ctxTherapy.fillRect(0, yMusc, w, h - yMusc);
+
+      // Separadores de interfase
+      ctxTherapy.strokeStyle = "rgba(100, 116, 139, 0.4)";
+      ctxTherapy.lineWidth = 1.5;
+      [yGel, ySkin, yFat, yMusc].forEach(y => {
+        ctxTherapy.beginPath();
+        ctxTherapy.moveTo(0, y);
+        ctxTherapy.lineTo(w, y);
+        ctxTherapy.stroke();
+      });
+
+      // Rótulos tisulares anatómicos
+      ctxTherapy.fillStyle = "rgba(71, 85, 105, 0.8)";
+      ctxTherapy.font = "bold 11px Inter";
+      ctxTherapy.fillText("Piel (Dermis / Epidermis)", 15, yGel + 18);
+      ctxTherapy.fillText("Grasa Subcutánea (Adipocitos)", 15, ySkin + 22);
+      ctxTherapy.fillText("Músculo Estriado (Fibras miofasciales)", 15, yFat + 25);
+      ctxTherapy.fillText("Corteza Ósea (Gran salto de impedancia)", 15, yMusc + 20);
+
+      // Cabezal Transductor Piezoeléctrico ultrasónico centrado
+      const headW = w * 0.28;
+      const headX = (w - headW) / 2;
+      const headH = yGel;
+
+      ctxTherapy.fillStyle = "#334155";
+      ctxTherapy.fillRect(headX, 0, headW, headH);
+      ctxTherapy.fillStyle = "#06b6d4"; // Cara metálica
+      ctxTherapy.fillRect(headX, headH - 4, headW, 4);
+
+      // Capa de Gel Acústico (fundamental para adaptar impedancia acústica Z)
+      ctxTherapy.fillStyle = "rgba(6, 182, 212, 0.35)";
+      ctxTherapy.fillRect(headX - 10, yGel - 6, headW + 20, 6);
+
+      // Cálculo del mapa térmico e intensidad acústica según frecuencia
+      const is1Mhz = appState.mechApp.freq === 1;
+      const isCont = appState.mechApp.regime === 'continuous';
+      const intensity = appState.mechApp.intensity;
+
+      // Temperatura calculada en vivo
+      const deltaTemp = (isCont ? intensity * 2.1 : intensity * 0.5) * (is1Mhz ? 1.0 : 1.25);
+      document.getElementById("tempElevationText").innerText = `+${deltaTemp.toFixed(1)} °C`;
+
+      // Simulación de haz acústico y disipación de calor
+      const beamGrad = ctxTherapy.createRadialGradient(
+        w / 2, is1Mhz ? yFat + 40 : ySkin + 15,
+        10,
+        w / 2, is1Mhz ? yFat + 40 : ySkin + 15,
+        is1Mhz ? 140 : 80
+      );
+
+      if (isCont) {
+        beamGrad.addColorStop(0, "rgba(239, 68, 68, 0.65)"); // Rojo térmico
+        beamGrad.addColorStop(0.5, "rgba(245, 158, 11, 0.35)");
+        beamGrad.addColorStop(1, "rgba(245, 158, 11, 0)");
+      } else {
+        beamGrad.addColorStop(0, "rgba(6, 182, 212, 0.6)"); // Cian micromecánico
+        beamGrad.addColorStop(0.6, "rgba(16, 185, 129, 0.2)");
+        beamGrad.addColorStop(1, "rgba(6, 182, 212, 0)");
+      }
+
+      ctxTherapy.fillStyle = beamGrad;
+      ctxTherapy.fillRect(headX - 40, yGel, headW + 80, yMusc - yGel);
+
+      // Microvibraciones acústicas longitudinales (frentes de presión)
+      ctxTherapy.strokeStyle = isCont ? "rgba(255, 255, 255, 0.7)" : "rgba(6, 182, 212, 0.8)";
+      ctxTherapy.lineWidth = 1.8;
+      const numWaves = 10;
+      const maxDepth = is1Mhz ? yMusc : yFat + 20;
+
+      for (let i = 0; i < numWaves; i++) {
+        const prog = ((time * (is1Mhz ? 2 : 4) + i / numWaves) % 1);
+        const currY = yGel + prog * (maxDepth - yGel);
+        const spread = prog * 40;
+
+        ctxTherapy.beginPath();
+        ctxTherapy.moveTo(headX - spread, currY);
+        ctxTherapy.lineTo(headX + headW + spread, currY);
+        ctxTherapy.stroke();
+      }
+    }
+
+    function setEchoTarget(target) {
+      appState.mechApp.target = target;
+      const btnCyst = document.getElementById("btnTargetCyst");
+      const btnCalc = document.getElementById("btnTargetCalc");
+
+      if (target === 'cyst') {
+        btnCyst.className = "w-full p-2.5 rounded-xl border-2 text-left text-xs font-semibold flex items-center justify-between transition border-cyan-500 bg-cyan-50/70 text-cyan-900";
+        btnCalc.className = "w-full p-2.5 rounded-xl border-2 text-left text-xs font-semibold flex items-center justify-between transition border-slate-200 hover:border-slate-300 text-slate-700";
+      } else {
+        btnCalc.className = "w-full p-2.5 rounded-xl border-2 text-left text-xs font-semibold flex items-center justify-between transition border-cyan-500 bg-cyan-50/70 text-cyan-900";
+        btnCyst.className = "w-full p-2.5 rounded-xl border-2 text-left text-xs font-semibold flex items-center justify-between transition border-slate-200 hover:border-slate-300 text-slate-700";
+      }
+    }
+
+    function updateEchoGain() {
+      appState.mechApp.gain = parseInt(document.getElementById("sliderGain").value);
+      document.getElementById("valEchoGain").innerText = appState.mechApp.gain;
+    }
+
+    function renderModule3Echo(dt) {
+      if (!ctxEchoPhys || !ctxEchoBMode) return;
+      const wP = canvasEchoPhys.width;
+      const hP = canvasEchoPhys.height;
+      const wB = canvasEchoBMode.width;
+      const hB = canvasEchoBMode.height;
+      const time = performance.now() * 0.002;
+
+      // 1. RENDERIZADO DEL ESPACIO FÍSICO
+      ctxEchoPhys.clearRect(0, 0, wP, hP);
+
+      // Capas de tejido: Grasa -> Músculo
+      const yInter = hP * 0.45;
+      ctxEchoPhys.fillStyle = "#1e293b";
+      ctxEchoPhys.fillRect(0, 0, wP, yInter);
+      ctxEchoPhys.fillStyle = "#0f172a";
+      ctxEchoPhys.fillRect(0, yInter, wP, hP - yInter);
+
+      // Línea de interfase de impedancia
+      ctxEchoPhys.strokeStyle = "rgba(6, 182, 212, 0.4)";
+      ctxEchoPhys.lineWidth = 2;
+      ctxEchoPhys.beginPath();
+      ctxEchoPhys.moveTo(0, yInter);
+      ctxEchoPhys.lineTo(wP, yInter);
+      ctxEchoPhys.stroke();
+
+      // Transductor ecográfico superior
+      ctxEchoPhys.fillStyle = "#475569";
+      ctxEchoPhys.fillRect(wP * 0.3, 0, wP * 0.4, 25);
+
+      // Objeto anatómico (Quiste o Calcificación)
+      const objX = wP * 0.5;
+      const objY = hP * 0.65;
+      const objR = 30 * (wP / 300);
+
+      if (appState.mechApp.target === 'cyst') {
+        // Quiste anecoico: líquido puro oscuro
+        ctxEchoPhys.fillStyle = "#020617";
+        ctxEchoPhys.beginPath();
+        ctxEchoPhys.arc(objX, objY, objR, 0, Math.PI * 2);
+        ctxEchoPhys.fill();
+        ctxEchoPhys.strokeStyle = "#38bdf8";
+        ctxEchoPhys.lineWidth = 1.5;
+        ctxEchoPhys.stroke();
+      } else {
+        // Calcificación hiperecoica: estructura densa blanca
+        ctxEchoPhys.fillStyle = "#ffffff";
+        ctxEchoPhys.beginPath();
+        ctxEchoPhys.arc(objX, objY, objR * 0.7, 0, Math.PI * 2);
+        ctxEchoPhys.fill();
+        // Sombra acústica en el fondo
+        ctxEchoPhys.fillStyle = "rgba(0, 0, 0, 0.85)";
+        ctxEchoPhys.fillRect(objX - objR * 0.7, objY, objR * 1.4, hP - objY);
+      }
+
+      // Animación de pulso piezoeléctrico incidente y ecos
+      const pulseProg = (time * 1.5) % 1;
+      const pulseY = pulseProg * hP;
+      ctxEchoPhys.strokeStyle = "#38bdf8";
+      ctxEchoPhys.lineWidth = 2.5;
+      ctxEchoPhys.beginPath();
+      ctxEchoPhys.arc(wP * 0.5, 25, pulseProg * (hP - 25), Math.PI * 0.3, Math.PI * 0.7);
+      ctxEchoPhys.stroke();
+
+      // 2. RENDERIZADO DEL MONITOR CLÍNICO MODO-B (Escala de Grises Reconstruida)
+      ctxEchoBMode.clearRect(0, 0, wB, hB);
+      ctxEchoBMode.fillStyle = "#000000";
+      ctxEchoBMode.fillRect(0, 0, wB, hB);
+
+      // Ruido acústico biológico (Speckle) característico
+      const gainFactor = appState.mechApp.gain / 50;
+      ctxEchoBMode.fillStyle = `rgba(180, 195, 210, ${0.12 * gainFactor})`;
+      for (let i = 0; i < 400; i++) {
+        const rx = Math.random() * wB;
+        const ry = Math.random() * hB;
+        ctxEchoBMode.fillRect(rx, ry, 1.5, 1.5);
+      }
+
+      // Interfase tisular media reflejada (línea hiperecoica difusa)
+      const bInterY = hB * 0.45;
+      ctxEchoBMode.fillStyle = `rgba(220, 230, 245, ${0.45 * gainFactor})`;
+      ctxEchoBMode.fillRect(0, bInterY - 2, wB, 5);
+
+      const bObjX = wB * 0.5;
+      const bObjY = hB * 0.65;
+      const bObjR = objR;
+
+      if (appState.mechApp.target === 'cyst') {
+        // En Modo B: Quiste anecoico es perfectamente negro (sin ecos)
+        ctxEchoBMode.fillStyle = "#000000";
+        ctxEchoBMode.beginPath();
+        ctxEchoBMode.arc(bObjX, bObjY, bObjR, 0, Math.PI * 2);
+        ctxEchoBMode.fill();
+
+        // Refuerzo acústico posterior (banda más brillante debajo del líquido puro)
+        ctxEchoBMode.fillStyle = `rgba(255, 255, 255, ${0.5 * gainFactor})`;
+        ctxEchoBMode.fillRect(bObjX - bObjR, bObjY + bObjR + 4, bObjR * 2, 18);
+        ctxEchoBMode.fillStyle = "#38bdf8";
+        ctxEchoBMode.font = "9px JetBrains Mono";
+        ctxEchoBMode.fillText("Refuerzo Acústico", bObjX - 42, bObjY + bObjR + 32);
+
+      } else {
+        // En Modo B: Calcificación hiperecoica brillante (blanco puro)
+        ctxEchoBMode.fillStyle = "#ffffff";
+        ctxEchoBMode.beginPath();
+        ctxEchoBMode.arc(bObjX, bObjY, bObjR * 0.7, 0, Math.PI * 2);
+        ctxEchoBMode.fill();
+
+        // Sombra acústica limpia (cono de oscuridad absoluta por reflexión total)
+        ctxEchoBMode.fillStyle = "#000000";
+        ctxEchoBMode.fillRect(bObjX - bObjR * 0.7, bObjY + bObjR * 0.7, bObjR * 1.4, hB - (bObjY + bObjR * 0.7));
+        ctxEchoBMode.fillStyle = "#94a3b8";
+        ctxEchoBMode.font = "9px JetBrains Mono";
+        ctxEchoBMode.fillText("Sombra Acústica", bObjX - 40, bObjY + bObjR + 35);
+      }
+
+      // Cuadrícula y marcadores de profundidad en cm
+      ctxEchoBMode.fillStyle = "#64748b";
+      ctxEchoBMode.font = "9px monospace";
+      for (let cm = 1; cm <= 4; cm++) {
+        const markY = (hB / 4) * cm;
+        ctxEchoBMode.fillText(`${cm} cm -`, 8, markY);
+      }
+    }
+
+    /* ===============================================================
+       MÓDULO 4: ESTACIÓN DE ONDAS ELECTROMAGNÉTICAS (MAGNETO & RMI)
+       =============================================================== */
+    let canvasMagneto, ctxMagneto;
+    let canvasMRI, ctxMRI;
+
+    function initModule4MagnetoCanvas() {
+      canvasMagneto = document.getElementById("magnetoCanvas");
+      ctxMagneto = canvasMagneto.getContext("2d");
+      resizeCanvasToDisplaySize(canvasMagneto);
+    }
+
+    function initModule4MRICanvas() {
+      canvasMRI = document.getElementById("mriCanvas");
+      ctxMRI = canvasMRI.getContext("2d");
+      resizeCanvasToDisplaySize(canvasMRI);
+    }
+
+    function setEMApp(app) {
+      appState.emApp.mode = app;
+      const btnMag = document.getElementById("btnAppMagneto");
+      const btnMRI = document.getElementById("btnAppMRI");
+      const viewMag = document.getElementById("view-magneto");
+      const viewMRI = document.getElementById("view-mri");
+
+      if (app === 'magneto') {
+        btnMag.className = "px-3.5 py-1.5 rounded-lg text-xs font-bold transition bg-white text-violet-700 shadow-sm";
+        btnMRI.className = "px-3.5 py-1.5 rounded-lg text-xs font-bold transition text-slate-600 hover:text-slate-900";
+        viewMag.classList.remove("hidden");
+        viewMRI.classList.add("hidden");
+        resizeCanvasToDisplaySize(canvasMagneto);
+      } else {
+        btnMRI.className = "px-3.5 py-1.5 rounded-lg text-xs font-bold transition bg-white text-violet-700 shadow-sm";
+        btnMag.className = "px-3.5 py-1.5 rounded-lg text-xs font-bold transition text-slate-600 hover:text-slate-900";
+        viewMRI.classList.remove("hidden");
+        viewMag.classList.add("hidden");
+        resizeCanvasToDisplaySize(canvasMRI);
+      }
+      }
+
+    function updateMagnetoParams() {
+      appState.emApp.magFreq = parseInt(document.getElementById("sliderMagFreq").value);
+      appState.emApp.magGauss = parseInt(document.getElementById("sliderMagGauss").value);
+
+      document.getElementById("valMagFreq").innerText = appState.emApp.magFreq;
+      document.getElementById("valMagGauss").innerText = appState.emApp.magGauss;
+
+      const badge = document.getElementById("magnetoModeBadge");
+      badge.innerText = `Campo ${appState.emApp.magRegime === 'pulsed' ? 'Pulsado' : 'Continuo'} ELF: ${appState.emApp.magFreq} Hz | ${appState.emApp.magGauss} Gauss`;
+    }
+
+    function setMagMode(mode) {
+      appState.emApp.magRegime = mode;
+      const bp = document.getElementById("btnMagPulsed");
+      const bc = document.getElementById("btnMagCont");
+      if (mode === 'pulsed') {
+        bp.className = "p-2.5 rounded-xl border-2 text-center text-xs font-bold transition border-violet-500 bg-violet-50 text-violet-900";
+        bc.className = "p-2.5 rounded-xl border-2 text-center text-xs font-bold transition border-slate-200 hover:border-slate-300 text-slate-700";
+      } else {
+        bc.className = "p-2.5 rounded-xl border-2 text-center text-xs font-bold transition border-violet-500 bg-violet-50 text-violet-900";
+        bp.className = "p-2.5 rounded-xl border-2 text-center text-xs font-bold transition border-slate-200 hover:border-slate-300 text-slate-700";
+      }
+      updateMagnetoParams();
+    }
+
+    function renderModule4Magneto(dt) {
+      if (!ctxMagneto) return;
+      const w = canvasMagneto.width;
+      const h = canvasMagneto.height;
+      const time = performance.now() * 0.003;
+
+      ctxMagneto.clearRect(0, 0, w, h);
+
+      // Fondo del campo biomagnético
+      const centerX = w / 2;
+      const centerY = h / 2;
+
+      // Extremidad anatómica tratada (cilindro central transparente simulando pierna/brazo)
+      ctxMagneto.fillStyle = "#1e293b";
+      ctxMagneto.beginPath();
+      ctxMagneto.roundRect(centerX - 160, centerY - 50, 320, 100, 20);
+      ctxMagneto.fill();
+      ctxMagneto.strokeStyle = "rgba(148, 163, 184, 0.3)";
+      ctxMagneto.stroke();
+
+      // Hueso en el interior de la extremidad
+      ctxMagneto.fillStyle = "#cbd5e1";
+      ctxMagneto.beginPath();
+      ctxMagneto.roundRect(centerX - 150, centerY - 12, 300, 24, 8);
+      ctxMagneto.fill();
+
+      // Solenoide toroidal (bobina circular con cortes de cobre)
+      const ringW = 120;
+      const ringH = 170;
+      ctxMagneto.strokeStyle = "#8b5cf6"; // Violeta electromagnético
+      ctxMagneto.lineWidth = 14;
+      ctxMagneto.beginPath();
+      ctxMagneto.ellipse(centerX, centerY, ringW, ringH, 0, 0, Math.PI * 2);
+      ctxMagneto.stroke();
+
+      // Bobinado de espiras de cobre
+      ctxMagneto.strokeStyle = "#f59e0b";
+      ctxMagneto.lineWidth = 3;
+      for (let a = 0; a < Math.PI * 2; a += Math.PI / 8) {
+        const ex = centerX + Math.cos(a) * ringW;
+        const ey = centerY + Math.sin(a) * ringH;
+        ctxMagneto.beginPath();
+        ctxMagneto.arc(ex, ey, 4, 0, Math.PI * 2);
+        ctxMagneto.stroke();
+      }
+
+      // Animación de líneas de campo de inducción magnética B (ELF)
+      const isPulsed = appState.emApp.magRegime === 'pulsed';
+      const pulseMod = isPulsed ? Math.sin(time * (appState.emApp.magFreq / 10)) : 1.0;
+      const alphaB = Math.max(0.1, Math.abs(pulseMod) * (appState.emApp.magGauss / 100));
+
+      ctxMagneto.strokeStyle = `rgba(139, 92, 246, ${alphaB})`;
+      ctxMagneto.lineWidth = 2;
+
+      for (let r = 30; r <= 140; r += 28) {
+        ctxMagneto.beginPath();
+        ctxMagneto.ellipse(centerX, centerY, ringW + r, ringH + r * 0.4, 0, 0, Math.PI * 2);
+        ctxMagneto.stroke();
+
+        // Flechas vectoriales de B orientadas
+        const angle = (time * 2) % (Math.PI * 2);
+        const arrowX = centerX + Math.cos(angle) * (ringW + r);
+        const arrowY = centerY + Math.sin(angle) * (ringH + r * 0.4);
+        ctxMagneto.fillStyle = "#c084fc";
+        ctxMagneto.beginPath();
+        ctxMagneto.arc(arrowX, arrowY, 3.5, 0, Math.PI * 2);
+        ctxMagneto.fill();
+      }
+
+      // Iones en movimiento a través de membranas en el hueso
+      const ionTime = time * 3;
+      ctxMagneto.fillStyle = "#34d399"; // Calcio Ca2+ verde
+      for (let i = -4; i <= 4; i++) {
+        const ionX = centerX + i * 28;
+        const ionY = centerY + Math.sin(ionTime + i) * 8;
+        ctxMagneto.beginPath();
+        ctxMagneto.arc(ionX, ionY, 3, 0, Math.PI * 2);
+        ctxMagneto.fill();
+      }
+    }
+
+    // RESONAICIA MAGNÉTICA (RMI)
+    function setMRIStep(step) {
+      appState.emApp.mriStep = step;
+      const b1 = document.getElementById("btnStep1");
+      const b2 = document.getElementById("btnStep2");
+      const b3 = document.getElementById("btnStep3");
+      const b4 = document.getElementById("btnStep4");
+      const badge = document.getElementById("mriStepBadge");
+
+      [b1, b2, b3, b4].forEach((b, idx) => {
+        if (idx + 1 === step) {
+          b.className = "p-2 rounded-xl border-2 transition border-violet-500 bg-violet-50 text-violet-900 font-bold";
+        } else {
+          b.className = "p-2 rounded-xl border-2 transition border-slate-200 hover:border-slate-300 text-slate-700";
+        }
+      });
+
+      const titles = [
+        "Paso 1: Alineación en Campo B0 Estático",
+        "Paso 2: Excitación con Pulso RF a 90° (Larmor)",
+        "Paso 3: Relajación Tisular T1/T2 y Emisión de Eco",
+        "Paso 4: Transformada de Fourier & Reconstrucción"
+      ];
+      badge.innerText = titles[step - 1];
+
+      // Recompensar al completar el ciclo
+      if (step === 4) rewardModuleProgress(4);
+    }
+
+    function setMRIWeighting(weight) {
+      appState.emApp.mriWeight = weight;
+      const b1 = document.getElementById("btnWeightT1");
+      const b2 = document.getElementById("btnWeightT2");
+      const desc = document.getElementById("mriWeightingText");
+
+      if (weight === 'T1') {
+        b1.className = "p-2 rounded-lg border-2 text-xs font-bold transition border-violet-500 bg-violet-50 text-violet-900";
+        b2.className = "p-2 rounded-lg border-2 text-xs font-bold transition border-slate-200 hover:border-slate-300 text-slate-700";
+        desc.innerText = "Secuencia T1: Grasa brillante, líquido cefalorraquídeo oscuro (Anatomía)";
+      } else {
+        b2.className = "p-2 rounded-lg border-2 text-xs font-bold transition border-violet-500 bg-violet-50 text-violet-900";
+        b1.className = "p-2 rounded-lg border-2 text-xs font-bold transition border-slate-200 hover:border-slate-300 text-slate-700";
+        desc.innerText = "Secuencia T2: Líquido brillante (Excelente para edema y patologías)";
+      }
+    }
+
+    function renderModule4MRI(dt) {
+      if (!ctxMRI) return;
+      const w = canvasMRI.width;
+      const h = canvasMRI.height;
+      const time = performance.now() * 0.003;
+
+      ctxMRI.clearRect(0, 0, w, h);
+
+      const step = appState.emApp.mriStep;
+      const fidText = document.getElementById("fidSignalText");
+
+      // Visualización de Protones de Hidrógeno (^1H) con Espín Cuántico
+      const rows = 4;
+      const cols = 7;
+      const spacingX = w / (cols + 1);
+      const spacingY = h / (rows + 1);
+
+      ctxMRI.strokeStyle = "rgba(139, 92, 246, 0.2)";
+      ctxMRI.lineWidth = 1;
+
+      for (let r = 1; r <= rows; r++) {
+        for (let c = 1; c <= cols; c++) {
+          const px = c * spacingX;
+          const py = r * spacingY;
+
+          // Esfera del protón
+          ctxMRI.fillStyle = "#06b6d4";
+          ctxMRI.beginPath();
+          ctxMRI.arc(px, py, 9, 0, Math.PI * 2);
+          ctxMRI.fill();
+
+          // Flecha del Vector de Magnetización Cuántica (Espín)
+          let angle = -Math.PI / 2; // Hacia arriba por defecto (paralelo a B0)
+
+          if (step === 1) {
+            // Alineación estática con B0 (algunos precesan con leve tambaleo)
+            angle = -Math.PI / 2 + Math.sin(time * 5 + c * r) * 0.15;
+            fidText.innerText = "B0 Estático: Magnetización neta Mz";
+          } else if (step === 2) {
+            // Pulso RF 90°: Tumbados en plano transversal
+            angle = Math.sin(time * 8 + c) * 0.3; // Horizontal oscilando
+            fidText.innerText = "Pulso RF ON: Mxy coherente (90°)";
+          } else if (step === 3) {
+            // Relajación: vuelven gradualmente a vertical perdiendo coherencia de fase
+            const recovery = (Math.sin(time * 2) + 1) / 2;
+            angle = -Math.PI / 2 * recovery;
+            fidText.innerText = "FID Captado: Señal decreciente";
+          } else {
+            // Reconstrucción lista
+            angle = -Math.PI / 2;
+            fidText.innerText = "K-Space Completo -> Matriz Final";
+          }
+
+          const arrowLen = 22;
+          const endX = px + Math.cos(angle) * arrowLen;
+          const endY = py + Math.sin(angle) * arrowLen;
+
+          ctxMRI.strokeStyle = "#8b5cf6";
+          ctxMRI.lineWidth = 2.5;
+          ctxMRI.beginPath();
+          ctxMRI.moveTo(px, py);
+          ctxMRI.lineTo(endX, endY);
+          ctxMRI.stroke();
+
+          // Punta de flecha
+          ctxMRI.fillStyle = "#c084fc";
+          ctxMRI.beginPath();
+          ctxMRI.arc(endX, endY, 3, 0, Math.PI * 2);
+          ctxMRI.fill();
+        }
+      }
+
+      // Vector B0 principal a la derecha si está activo
+      ctxMRI.strokeStyle = "#10b981";
+      ctxMRI.lineWidth = 4;
+      ctxMRI.beginPath();
+      ctxMRI.moveTo(w - 30, h - 30);
+      ctxMRI.lineTo(w - 30, 40);
+      ctxMRI.stroke();
+      ctxMRI.fillStyle = "#10b981";
+      ctxMRI.font = "bold 12px JetBrains Mono";
+      ctxMRI.fillText("B0 ➔ 1.5 T", w - 80, 30);
+    }
+
+    /* ===============================================================
+       MÓDULO 5: CASOS CLÍNICOS Y EVALUACIÓN FORMATIVA
+       =============================================================== */
+    const caseSolutions = {
+      1: {
+        correct: 'B',
+        rationale: "¡Correcto! El ultrasonido terapéutico es una onda MECÁNICA de alta frecuencia. A 1 MHz la atenuación es menor, permitiendo penetración profunda (>4 cm) hacia musculatura paravertebral y psoas. El régimen continuo genera la hipertermia profunda y relajación miofascial requerida."
+      },
+      2: {
+        correct: 'A',
+        rationale: "¡Exacto! El coeficiente de reflexión depende del salto de impedancia acústica (ΔZ). La interfase tejido blando - hueso o tejido - aire presenta una discrepancia tan masiva que el 99% de la onda mecánica rebota en la superficie, impidiendo evaluar estructuras subyacentes."
+      },
+      3: {
+        correct: 'B',
+        rationale: "¡Excelente diagnóstico! La RMI utiliza ondas electromagnéticas de radiofrecuencia acopladas a campos magnéticos. Su contraste es óptimo en partes blandas gracias al contenido diferencial de agua (protones de hidrógeno) y los tiempos de relajación T1/T2 de ligamentos y meniscos."
+      },
+      4: {
+        correct: 'A',
+        rationale: "¡Rigurosa seguridad biológica! Los campos magnéticos variables inducen fuerzas mecánicas sobre metales y f.e.m. parásitas (Ley de Faraday) que pueden desprogramar marcapasos o calentar electrodos cardíacos, constituyendo una contraindicación formal."
+      }
+    };
+
+    function answerCase(caseNum, selectedOption) {
+      const sol = caseSolutions[caseNum];
+      const feedbackEl = document.getElementById(`feedbackCase${caseNum}`);
+      const statusEl = document.getElementById(`case1Status`);
+      const targetStatus = document.getElementById(`case${caseNum}Status`);
+
+      // Deshabilitar botones de ese caso
+      ['A', 'B', 'C'].forEach(opt => {
+        const btn = document.getElementById(`btnCase${caseNum}${opt}`);
+        if (btn) btn.disabled = true;
+      });
+
+      const selectedBtn = document.getElementById(`btnCase${caseNum}${selectedOption}`);
+
+      if (selectedOption === sol.correct) {
+        selectedBtn.classList.add("bg-emerald-50", "border-emerald-500", "text-emerald-950", "font-bold");
+        feedbackEl.className = "p-3 rounded-xl text-xs leading-relaxed bg-emerald-50 text-emerald-900 border border-emerald-200 block";
+        feedbackEl.innerHTML = `<strong>Respuesta Correcta:</strong> ${sol.rationale}`;
+        targetStatus.innerText = "Aprobado";
+        targetStatus.className = "text-xs font-semibold text-emerald-600 font-mono";
+
+        if (!appState.completedModules[`case${caseNum}`]) {
+          appState.completedModules[`case${caseNum}`] = true;
+          appState.masteryScore += 50;
+          updateMasteryDisplay();
+        }
+      } else {
+        selectedBtn.classList.add("bg-rose-50", "border-rose-400", "text-rose-900");
+        feedbackEl.className = "p-3 rounded-xl text-xs leading-relaxed bg-rose-50 text-rose-900 border border-rose-200 block";
+        feedbackEl.innerHTML = `<strong>Respuesta Incorrecta:</strong> La opción seleccionada no concuerda con las bases biofísicas. ${sol.rationale}`;
+        targetStatus.innerText = "Revisar";
+        targetStatus.className = "text-xs font-semibold text-rose-500 font-mono";
+      }
+    }
+
+    function generateReportModal() {
+      updateMasteryDisplay();
+      document.getElementById("reportModal").classList.remove("hidden");
+    }
+
+    function closeReportModal() {
+      document.getElementById("reportModal").classList.add("hidden");
+    }
+
+    /* ===============================================================
+       BUCLE MAESTRO DE RENDERIZADO (60 FPS)
+       =============================================================== */
+    let lastTime = performance.now();
+
+    function mainRenderLoop(currentTime) {
+      const dt = currentTime - lastTime;
+      lastTime = currentTime;
+
+      // Renderizar el módulo activo
+      if (appState.currentTab === 1) {
+        renderModule1(dt);
+      } else if (appState.currentTab === 2) {
+        renderModule2(dt);
+      } else if (appState.currentTab === 3) {
+        if (appState.mechApp.mode === 'therapy') {
+          renderModule3Therapy(dt);
+        } else {
+          renderModule3Echo(dt);
+        }
+      } else if (appState.currentTab === 4) {
+        if (appState.emApp.mode === 'magneto') {
+          renderModule4Magneto(dt);
+        } else {
+          renderModule4MRI(dt);
+        }
+      }
+
+      requestAnimationFrame(mainRenderLoop);
+    }
+  </script>
+</body>
+</html>
